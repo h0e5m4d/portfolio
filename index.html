@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tu Linh Tran — Product Designer</title>
+    <meta
+      name="description"
+      content="Portfolio of Tu Linh Tran, product design student working across UX/UI, HCI, type and graphic design."
+    />
+
+    <!--
+      Theme script: runs BEFORE the page is drawn.
+      If it ran later (inside React), a dark-mode visitor would first see
+      the white page for a split second, then flip to dark ("flash").
+      It picks the saved choice if there is one, otherwise the system setting,
+      and writes it to <html data-theme="...">. All colors in tokens.css
+      react to that attribute.
+    -->
+    <script>
+      (function () {
+        var theme;
+        try {
+          theme = localStorage.getItem('theme');
+        } catch (e) {}
+        if (theme !== 'light' && theme !== 'dark') {
+          theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
+  </head>
+  <body>
+    <!-- React renders the whole app inside this div. -->
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

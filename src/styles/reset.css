@@ -1,0 +1,91 @@
+/*
+  RESET
+  Browsers ship different default margins, font sizes and box models.
+  This small reset makes every browser start from the same place,
+  so what we design is what everyone sees.
+*/
+
+/* Width/height include padding and border, so a 300px box stays 300px. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default spacing; we add spacing deliberately with tokens. */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  /* Stop iOS from enlarging text when the phone is rotated. */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Media should never overflow its container and shouldn't sit on the
+   text baseline (which leaves a small gap underneath). */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Form elements inherit the site font instead of the system one. */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Long words or URLs wrap instead of breaking the layout on mobile. */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+/* Balanced headings, fewer lonely last words in paragraphs. */
+h1,
+h2,
+h3,
+h4 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}

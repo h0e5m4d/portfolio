@@ -1,0 +1,69 @@
+/*
+  GLOBAL BASE STYLES
+  Only things that apply to the whole site belong here.
+  Anything specific to one component goes in that component's
+  own .module.css file (from Step 1 on).
+*/
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  /* Smooth color change when switching light/dark. */
+  transition:
+    background-color var(--duration-base) var(--ease-out),
+    color var(--duration-base) var(--ease-out);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-tight);
+  letter-spacing: -0.01em;
+}
+
+/*
+  Keyboard focus: a visible ring when someone tabs through the page,
+  but no ring when clicking with a mouse (:focus-visible handles that).
+  Recruiters and assessors often check accessibility basics like this.
+*/
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+::selection {
+  background-color: var(--color-text);
+  color: var(--color-bg);
+}
+
+/* ---------- Shared utility classes ----------
+   Small, reusable helpers. Kept deliberately few. */
+
+/* The mono UPPERCASE label style from your Framer site. */
+.label {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+/* Hides content visually but keeps it readable by screen readers,
+   e.g. for icon-only buttons like the theme toggle. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}

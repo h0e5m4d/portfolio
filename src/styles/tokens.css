@@ -1,0 +1,113 @@
+/*
+  DESIGN TOKENS
+  Every color, font, size and spacing value used on the site lives here
+  as a CSS variable. Components never hard-code values like "#525252" or
+  "24px"; they write var(--color-text-muted) or var(--space-4).
+
+  Why: change a value here once, and the whole site updates.
+  Dark mode works the same way: it only swaps the color values below.
+
+  Breakpoints (CSS variables can't be used inside @media, so they're
+  documented here and written as plain numbers in the CSS):
+    phone    < 810px
+    tablet   810px – 1199px
+    desktop  ≥ 1200px
+    wide     ≥ 1440px
+  These match the breakpoints in your Framer site.
+*/
+
+:root {
+  /* ---------- Color: light theme (default) ---------- */
+  --color-bg: #ffffff;
+  --color-surface: #f4f4f4; /* grey backdrop behind project images */
+  --color-text: #000000; /* nav, headings, links */
+  --color-text-muted: #525252; /* body paragraphs */
+  --color-text-subtle: #737373; /* metadata: years, categories, clock */
+  --color-text-faint: #a1a1a1; /* decorative only, never essential text */
+  --color-border: #d4d4d4;
+  --color-focus: #2563eb; /* keyboard focus ring, must be clearly visible */
+
+  /* ---------- Typography ---------- */
+  --font-sans: 'Geist Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Geist Mono Variable', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+  /*
+    Type scale. clamp(min, preferred, max) makes sizes fluid:
+    they grow smoothly with the screen width between a min and max,
+    so we need far fewer media queries.
+  */
+  --text-xs: 0.75rem; /* 12px  tiny labels */
+  --text-sm: 0.875rem; /* 14px  nav, mono labels (Framer value) */
+  --text-base: 1rem; /* 16px  body text */
+  --text-md: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem); /* 17–19px  lead paragraphs */
+  --text-lg: clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem); /* 20–26px  section titles */
+  --text-xl: clamp(1.75rem, 1.4rem + 1.5vw, 2.75rem); /* 28–44px  page titles */
+  --text-2xl: clamp(2.25rem, 1.6rem + 3vw, 4.5rem); /* 36–72px  hero */
+
+  --leading-tight: 1.15; /* big headings */
+  --leading-snug: 1.35; /* labels, short text */
+  --leading-normal: 1.6; /* paragraphs */
+
+  --tracking-label: 0.02em; /* slight letter spacing for UPPERCASE mono labels */
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+
+  /* ---------- Spacing ----------
+     A 4px-based scale. Using only these steps keeps the rhythm of the
+     whole site consistent. */
+  --space-1: 0.25rem; /* 4px */
+  --space-2: 0.5rem; /* 8px */
+  --space-3: 0.75rem; /* 12px */
+  --space-4: 1rem; /* 16px */
+  --space-5: 1.5rem; /* 24px, Framer's page edge padding */
+  --space-6: 2rem; /* 32px */
+  --space-7: 3rem; /* 48px */
+  --space-8: 4rem; /* 64px */
+  --space-9: 6rem; /* 96px */
+  --space-10: 8rem; /* 128px */
+
+  /* Vertical space between page sections, fluid like the type scale. */
+  --space-section: clamp(4rem, 2.5rem + 6vw, 9rem);
+
+  /* ---------- Layout ---------- */
+  --page-gutter: clamp(1rem, 0.5rem + 2vw, 1.5rem); /* left/right page padding */
+  --content-max: 1440px; /* widest the layout ever gets */
+  --text-max: 65ch; /* comfortable line length for reading */
+
+  /* ---------- Motion ---------- */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-fast: 150ms;
+  --duration-base: 300ms;
+  --duration-slow: 600ms;
+
+  /* Tells the browser which theme we're in, so built-in UI
+     (scrollbars, form controls) matches. */
+  color-scheme: light;
+}
+
+/* ---------- Color: dark theme ----------
+   Set by the script in index.html (and later by the theme toggle).
+   Only colors change; everything else is shared. */
+:root[data-theme='dark'] {
+  --color-bg: #0a0a0a;
+  --color-surface: #171717;
+  --color-text: #f5f5f5;
+  --color-text-muted: #a3a3a3;
+  --color-text-subtle: #8a8a8a;
+  --color-text-faint: #525252;
+  --color-border: #2e2e2e;
+  --color-focus: #60a5fa;
+
+  color-scheme: dark;
+}
+
+/* People who set "reduce motion" in their system get instant changes. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms;
+    --duration-base: 0ms;
+    --duration-slow: 0ms;
+  }
+}

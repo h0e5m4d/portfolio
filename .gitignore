@@ -1,0 +1,20 @@
+# Installed packages: recreated by `npm install`, never committed
+node_modules
+
+# Build output: recreated by `npm run build`
+dist
+
+# Logs and OS / editor clutter
+*.log
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+.idea
+
+# Local environment files (may contain secrets)
+.env
+.env.*
+!.env.example
+
+# Vercel CLI
+.vercel
