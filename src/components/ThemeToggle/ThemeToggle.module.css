@@ -1,0 +1,73 @@
+/*
+  iOS-style switch.
+  The track holds a sun (left) and moon (right). The white thumb slides
+  over whichever one is NOT active, so the visible icon shows the mode.
+*/
+
+.toggle {
+  --track-w: 52px;
+  --track-h: 30px;
+  --thumb: 24px;
+  --gap: calc((var(--track-h) - var(--thumb)) / 2); /* space around the thumb */
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  width: var(--track-w);
+  height: var(--track-h);
+  padding-inline: 8px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-control);
+  transition: background-color var(--duration-base) var(--ease-out);
+}
+
+.icon {
+  width: 14px;
+  height: 14px;
+  color: var(--color-text-subtle);
+  transition: color var(--duration-base) var(--ease-out);
+}
+
+.thumb {
+  position: absolute;
+  top: var(--gap);
+  left: var(--gap);
+  width: var(--thumb);
+  height: var(--thumb);
+  border-radius: 50%;
+  background-color: #fff;
+  box-shadow:
+    0 2px 4px rgb(0 0 0 / 0.15),
+    0 0 0 0.5px rgb(0 0 0 / 0.04);
+  /* Light mode: thumb sits over the moon (right side), sun is visible. */
+  transform: translateX(calc(var(--track-w) - var(--thumb) - var(--gap) * 2));
+  transition:
+    transform var(--duration-base) var(--ease-spring),
+    width var(--duration-fast) var(--ease-out);
+}
+
+/* aria-checked="true" means dark mode is on.
+   Styling from the ARIA attribute keeps the visuals and the
+   screen-reader state guaranteed to match. */
+.toggle[aria-checked='true'] .thumb {
+  transform: translateX(0); /* slide left, over the sun */
+}
+
+.toggle[aria-checked='false'] .sun,
+.toggle[aria-checked='true'] .moon {
+  color: var(--color-accent);
+}
+
+/* Press feedback: the thumb stretches a little, like on iOS. */
+.toggle:active .thumb {
+  width: calc(var(--thumb) + 4px);
+}
+
+.toggle[aria-checked='false']:active .thumb {
+  transform: translateX(calc(var(--track-w) - var(--thumb) - 4px - var(--gap) * 2));
+}
+
+.toggle:focus-visible {
+  outline-offset: 2px;
+}
