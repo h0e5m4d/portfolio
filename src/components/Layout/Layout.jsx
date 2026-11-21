@@ -4,6 +4,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import Nav from '../Nav/Nav.jsx';
 import LocationWidget from '../LocationWidget/LocationWidget.jsx';
 import ThemeToggle from '../ThemeToggle/ThemeToggle.jsx';
+import Footer from '../Footer/Footer.jsx';
 import styles from './Layout.module.css';
 
 /*
@@ -39,7 +40,7 @@ export default function Layout() {
         <Outlet />
       </main>
 
-      {/* Step 3: Footer + contact links */}
+      <Footer />
     </div>
   );
 }
