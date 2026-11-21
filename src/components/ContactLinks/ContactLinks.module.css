@@ -1,0 +1,125 @@
+/* Tree structure comes from CornerTree; this styles the contents. */
+
+.root {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.35em;
+  font-weight: var(--weight-medium);
+}
+
+.at {
+  color: var(--color-accent);
+}
+
+.rootSlash {
+  margin-left: -0.35em;
+  color: var(--color-text-faint);
+}
+
+/* ---------- Email copy button ---------- */
+
+.email {
+  /* Grid with both texts in the same cell = stacked on top of each other. */
+  display: inline-grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+  column-gap: 0.45em;
+  text-transform: none; /* email addresses read better in lowercase */
+  letter-spacing: inherit;
+}
+
+.address,
+.copiedText {
+  grid-area: 1 / 1;
+  transition:
+    opacity var(--duration-base) var(--ease-out),
+    transform var(--duration-base) var(--ease-spring);
+}
+
+.copiedText {
+  color: var(--color-accent);
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+/* Copied: the address slides up and out, the confirmation slides in. */
+.email[data-copied='true'] .address {
+  opacity: 0;
+  transform: translateY(-6px);
+}
+
+.email[data-copied='true'] .copiedText {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.icon {
+  grid-area: 1 / 2;
+  width: 14px;
+  height: 14px;
+  color: var(--color-text-subtle);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.email:hover .icon {
+  color: var(--color-text);
+}
+
+.check,
+.email:hover .check {
+  color: var(--color-accent);
+}
+
+/* Pressed: a tiny shrink, like tapping an iOS button. */
+.email:active {
+  transform: scale(0.97);
+}
+
+/* ---------- External links ---------- */
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  transition: transform var(--duration-base) var(--ease-spring);
+}
+
+/* Mirrored corner, mirrored nudge: right-side links move left. */
+.link:hover {
+  transform: translateX(-3px);
+}
+
+.slash {
+  margin-right: -0.3em;
+  color: var(--color-text-faint);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.link:hover .slash {
+  color: var(--color-accent);
+}
+
+.arrow {
+  width: 12px;
+  height: 12px;
+  color: var(--color-text-subtle);
+  transition:
+    transform var(--duration-base) var(--ease-spring),
+    color var(--duration-fast) var(--ease-out);
+}
+
+/* The arrow hops up-right, pointing where you're about to go. */
+.link:hover .arrow {
+  color: var(--color-accent);
+  transform: translate(2px, -2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .link:hover,
+  .link:hover .arrow,
+  .email[data-copied='true'] .address,
+  .copiedText {
+    transform: none;
+  }
+}
