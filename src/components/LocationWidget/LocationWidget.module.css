@@ -1,0 +1,65 @@
+.widget {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  line-height: 1.45;
+  letter-spacing: var(--tracking-label);
+  text-align: right;
+  cursor: default;
+}
+
+.place {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.45em;
+  color: var(--color-text);
+  text-transform: uppercase;
+}
+
+.icon {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  color: var(--color-accent);
+}
+
+.meta {
+  color: var(--color-text-subtle);
+  /*
+    Tabular numbers: every digit gets the same width, so the clock
+    doesn't wiggle sideways as "1" (narrow) changes to "8" (wide).
+    Geist Mono already does this, but it's a good habit for any font.
+  */
+  font-variant-numeric: tabular-nums;
+}
+
+.colon {
+  margin-inline: 0.05em;
+  /* The colons blink softly, like a digital clock. */
+  animation: blink 2s steps(1, end) infinite;
+}
+
+.period {
+  margin-left: 0.15em;
+}
+
+.dot {
+  margin-inline: 0.5em;
+  color: var(--color-text-faint);
+}
+
+.placeholder {
+  color: var(--color-text-faint);
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .colon {
+    animation: none;
+  }
+}

@@ -1,8 +1,5 @@
 // Placeholder, built properly in a later step.
+// (No <main> here: Layout already provides it.)
 export default function About() {
-  return (
-    <main style={{ padding: 'var(--page-gutter)' }}>
-      <h1 className="label">/About</h1>
-    </main>
-  );
+  return <h1 className="label">/About</h1>;
 }

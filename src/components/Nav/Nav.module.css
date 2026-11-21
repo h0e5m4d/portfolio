@@ -1,0 +1,124 @@
+.nav {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  line-height: 1.45;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+/* ---------- Root: ⁑ TULINHTRAN/ ---------- */
+
+.root {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.35em;
+  font-weight: var(--weight-medium);
+  color: var(--color-text);
+}
+
+.logoMark {
+  display: inline-block;
+  transition: transform var(--duration-slow) var(--ease-spring);
+}
+
+/* A small reward for hovering the logo: the mark spins. */
+.root:hover .logoMark {
+  transform: rotate(180deg);
+}
+
+.slash {
+  margin-left: -0.35em;
+  color: var(--color-text-faint);
+}
+
+/* ---------- Tree ---------- */
+
+/*
+  The tree lines are drawn with CSS instead of text characters (├ └),
+  because characters leave gaps between lines. Each item draws:
+    ::before  the vertical line on its left
+    ::after   the short horizontal tick pointing at the link
+  The last item's vertical line stops halfway, making the └ corner.
+*/
+.tree {
+  --line: 1px solid var(--color-text-faint);
+  --tick-y: 0.725em; /* vertical middle of one line of text (1.45 / 2) */
+
+  margin-left: 0.4em; /* lines start under the ⁑ mark */
+}
+
+.item {
+  position: relative;
+  padding-left: 1.1em;
+}
+
+.item::before,
+.item::after {
+  content: '';
+  position: absolute;
+  left: 0;
+}
+
+.item::before {
+  top: 0;
+  bottom: 0;
+  border-left: var(--line);
+}
+
+.item:last-child::before {
+  bottom: auto;
+  height: var(--tick-y);
+}
+
+.item::after {
+  top: var(--tick-y);
+  width: 0.75em;
+  border-top: var(--line);
+}
+
+.link {
+  display: inline-flex;
+  align-items: baseline;
+  color: var(--color-text);
+  transition:
+    color var(--duration-fast) var(--ease-out),
+    transform var(--duration-base) var(--ease-spring);
+}
+
+.slashMuted {
+  color: var(--color-text-faint);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+/* Hover: link nudges right, slash turns red, like moving a cursor. */
+.link:hover {
+  transform: translateX(3px);
+}
+
+.link:hover .slashMuted {
+  color: var(--color-accent);
+}
+
+/*
+  Active page: a red wavy underline, like the squiggle a code editor
+  draws under a word. NavLink sets aria-current="page" on the active link,
+  so the style is tied to real accessibility state, not a separate class.
+*/
+.link[aria-current='page'] .label {
+  text-decoration-line: underline;
+  text-decoration-style: wavy;
+  text-decoration-color: var(--color-accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+/* Reduced motion: keep the color change, drop the movement. */
+@media (prefers-reduced-motion: reduce) {
+  .link:hover {
+    transform: none;
+  }
+
+  .root:hover .logoMark {
+    transform: none;
+  }
+}
