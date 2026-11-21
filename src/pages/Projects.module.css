@@ -1,0 +1,49 @@
+.intro {
+  display: grid;
+  gap: var(--space-4);
+  max-width: 40rem;
+  margin-bottom: var(--space-6);
+}
+
+.title {
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-medium);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+/* "(04)" floating next to the title, in mono, like a file count. */
+.total {
+  margin-left: 0.2em;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-regular);
+  letter-spacing: var(--tracking-label);
+  color: var(--color-accent);
+  vertical-align: top;
+  position: relative;
+  top: 0.4em;
+}
+
+.lead {
+  font-size: var(--text-md);
+  color: var(--color-text-muted);
+}
+
+/*
+  Grid: one column on phones, two from tablet up.
+  `row-gap` is larger than `column-gap` so each card's text clearly
+  belongs to the image above it, not the one below.
+*/
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8) var(--space-5);
+  margin-top: var(--space-7);
+}
+
+@media (min-width: 810px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
