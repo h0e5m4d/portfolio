@@ -10,7 +10,8 @@ export const site = {
   // once you've found your internship, and the dot turns grey.
   status: {
     available: true,
-    text: 'Open for internships from April 2027',
+    text: 'Open for internships',
+    detail: 'From April 2027',
   },
 
   // External profiles. The résumé will become '/resume.pdf' once the
@@ -23,7 +24,4 @@ export const site = {
     { label: 'LinkedIn', href: 'https://www.linkedin.com/in/tulinhtrann' },
     { label: 'Instagram', href: 'https://www.instagram.com/2linh0/' },
   ],
-
-  // This website's own code, a nod to your interest in implementation.
-  sourceUrl: 'https://github.com/h0e5m4d/portfolio',
 };

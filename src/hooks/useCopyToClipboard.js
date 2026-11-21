@@ -20,20 +20,46 @@ export function useCopyToClipboard(resetAfter = 2000) {
 
   const copy = useCallback(
     async (text) => {
-      try {
-        // The Clipboard API only works on https (or localhost) and can be
-        // blocked by the browser, so it may throw.
-        await navigator.clipboard.writeText(text);
+      const ok = (await copyModern(text)) || copyLegacy(text);
+      if (ok) {
         setCopied(true);
         clearTimeout(timeoutRef.current);
         timeoutRef.current = setTimeout(() => setCopied(false), resetAfter);
-        return true;
-      } catch {
-        return false;
       }
+      return ok;
     },
     [resetAfter],
   );
 
   return { copied, copy };
+}
+
+// The modern Clipboard API. Only works on https (or localhost) and can be
+// blocked by the browser, so it may throw.
+async function copyModern(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+// Fallback for older or stricter browsers: put the text in a hidden
+// textarea, select it, and use the old "copy" command.
+function copyLegacy(text) {
+  try {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.setAttribute('readonly', '');
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.select();
+    const ok = document.execCommand('copy');
+    textarea.remove();
+    return ok;
+  } catch {
+    return false;
+  }
 }

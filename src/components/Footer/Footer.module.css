@@ -1,52 +1,30 @@
+/*
+  Bottom-left and bottom-right corners, the mirror image of the header.
+  flex-wrap: on a narrow phone the right tree drops below the left one,
+  and margin-left: auto keeps it hugging the right edge.
+*/
 .footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--space-6) var(--space-5);
   width: 100%;
   max-width: var(--content-max);
   margin-inline: auto;
-  padding: var(--space-7) var(--page-gutter) var(--space-5);
-  display: grid;
-  gap: var(--space-8);
-  font-family: var(--font-mono);
-  font-size: var(--text-sm);
-  letter-spacing: var(--tracking-label);
+  padding: var(--space-7) var(--page-gutter) var(--page-gutter);
 }
 
-/* Mobile first: everything stacks. Wider screens spread into rows. */
-.top,
-.bottom {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
+.footer > :last-child {
+  margin-left: auto;
 }
 
-.top {
-  padding-top: var(--space-6);
-  border-top: 1px solid var(--color-border);
-}
-
-.bottom {
-  color: var(--color-text-subtle);
-  font-size: var(--text-xs);
-  text-transform: uppercase;
-}
-
-@media (min-width: 810px) {
-  .top,
-  .bottom {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-}
-
-/* ---------- Availability status ---------- */
+/* ---------- Status ---------- */
 
 .status {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-3);
-  color: var(--color-text);
-  text-transform: uppercase;
+  gap: 0.6em;
 }
 
 .dot {
@@ -87,37 +65,25 @@
   }
 }
 
-/* ---------- Bottom row ---------- */
+/* ---------- Rows ---------- */
 
-.sep {
-  margin-inline: 0.6em;
-  color: var(--color-text-faint);
-}
-
-.subtleLink {
-  white-space: nowrap; /* never split a link label across lines */
+.subtle {
   color: var(--color-text-subtle);
-  text-decoration: underline;
-  text-decoration-color: var(--color-border);
-  text-underline-offset: 3px;
-  transition:
-    color var(--duration-fast) var(--ease-out),
-    text-decoration-color var(--duration-fast) var(--ease-out);
 }
 
-.subtleLink:hover {
+.link {
   color: var(--color-text);
-  text-decoration-color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: inherit;
 }
 
-.toTop {
-  align-self: flex-start;
-  color: var(--color-text-subtle);
-  text-transform: uppercase;
+.slash {
+  margin-right: 0.05em;
+  color: var(--color-text-faint);
   transition: color var(--duration-fast) var(--ease-out);
 }
 
-.toTop:hover {
+.link:hover .slash {
   color: var(--color-accent);
 }
 

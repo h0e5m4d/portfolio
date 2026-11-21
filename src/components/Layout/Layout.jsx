@@ -29,11 +29,11 @@ export default function Layout() {
       </a>
 
       <header className={styles.header}>
+        {/* Top-left and top-right corners. The footer mirrors these. */}
         <Nav />
-        <div className={styles.controls}>
-          <LocationWidget />
+        <LocationWidget>
           <ThemeToggle />
-        </div>
+        </LocationWidget>
       </header>
 
       <main id="main" className={styles.main}>

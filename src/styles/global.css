@@ -54,6 +54,60 @@ h4 {
   text-transform: uppercase;
 }
 
+/*
+  Wavy link underline: a red wave that draws in from the left on hover
+  and gently flows while you stay on it. The active page (aria-current)
+  keeps a still wave.
+
+  How: a tiny SVG wave is used as a *mask* over a red bar. A mask means
+  the color comes from CSS (var(--color-accent)), so it automatically
+  switches with light/dark mode. An SVG with a fixed color couldn't.
+*/
+.link-wavy {
+  position: relative;
+}
+
+.link-wavy::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 4px;
+  background-color: var(--color-accent);
+  -webkit-mask: var(--wave) repeat-x 0 0 / 8px 4px;
+  mask: var(--wave) repeat-x 0 0 / 8px 4px;
+  transition: width var(--duration-base) var(--ease-out);
+  pointer-events: none;
+}
+
+.link-wavy:hover::after {
+  width: 100%;
+  animation: wave-flow 0.7s linear infinite;
+}
+
+.link-wavy[aria-current='page']::after {
+  width: 100%;
+}
+
+/* Moving the mask by exactly one wave length (8px) loops seamlessly. */
+@keyframes wave-flow {
+  to {
+    -webkit-mask-position: 8px 0;
+    mask-position: 8px 0;
+  }
+}
+
+:root {
+  --wave: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='4' viewBox='0 0 8 4'%3E%3Cpath d='M0 2 Q2 0.3 4 2 T8 2' fill='none' stroke='black' stroke-width='1.2'/%3E%3C/svg%3E");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .link-wavy:hover::after {
+    animation: none;
+  }
+}
+
 /* Hides content visually but keeps it readable by screen readers,
    e.g. for icon-only buttons like the theme toggle. */
 .visually-hidden {

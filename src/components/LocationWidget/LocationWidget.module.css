@@ -1,19 +1,10 @@
-.widget {
-  font-family: var(--font-mono);
-  font-size: var(--text-sm);
-  line-height: 1.45;
-  letter-spacing: var(--tracking-label);
-  text-align: right;
-  cursor: default;
-}
+/* Tree structure comes from CornerTree; this styles the contents. */
 
 .place {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  justify-content: flex-end;
   gap: 0.45em;
-  color: var(--color-text);
-  text-transform: uppercase;
+  cursor: default;
 }
 
 .icon {
@@ -23,12 +14,11 @@
   color: var(--color-accent);
 }
 
-.meta {
+.subtle {
   color: var(--color-text-subtle);
   /*
     Tabular numbers: every digit gets the same width, so the clock
     doesn't wiggle sideways as "1" (narrow) changes to "8" (wide).
-    Geist Mono already does this, but it's a good habit for any font.
   */
   font-variant-numeric: tabular-nums;
 }
@@ -41,6 +31,7 @@
 
 .period {
   margin-left: 0.15em;
+  text-transform: lowercase;
 }
 
 .dot {

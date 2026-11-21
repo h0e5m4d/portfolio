@@ -5,9 +5,10 @@
 */
 
 .toggle {
-  --track-w: 52px;
-  --track-h: 30px;
-  --thumb: 24px;
+  /* Sized to fit one row of the corner tree. */
+  --track-w: 40px;
+  --track-h: 22px;
+  --thumb: 18px;
   --gap: calc((var(--track-h) - var(--thumb)) / 2); /* space around the thumb */
 
   position: relative;
@@ -16,15 +17,23 @@
   justify-content: space-between;
   width: var(--track-w);
   height: var(--track-h);
-  padding-inline: 8px;
+  padding-inline: 5px;
   border-radius: var(--radius-full);
   background-color: var(--color-control);
   transition: background-color var(--duration-base) var(--ease-out);
 }
 
+/* Invisible larger tap area: the switch is small, but fingers aren't.
+   Keeps the touch target at least 44px tall, as Apple recommends. */
+.toggle::before {
+  content: '';
+  position: absolute;
+  inset: -11px -6px;
+}
+
 .icon {
-  width: 14px;
-  height: 14px;
+  width: 11px;
+  height: 11px;
   color: var(--color-text-subtle);
   transition: color var(--duration-base) var(--ease-out);
 }

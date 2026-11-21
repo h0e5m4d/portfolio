@@ -1,42 +1,96 @@
-.list {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--space-2) var(--space-6);
-  font-family: var(--font-mono);
-  font-size: var(--text-sm);
-  letter-spacing: var(--tracking-label);
+/* Tree structure comes from CornerTree; this styles the contents. */
+
+.root {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.35em;
+  font-weight: var(--weight-medium);
 }
 
-.emailItem {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
+.at {
+  color: var(--color-accent);
 }
 
-/* ---------- Links ---------- */
+.rootSlash {
+  margin-left: -0.35em;
+  color: var(--color-text-faint);
+}
+
+/* ---------- Email copy button ---------- */
+
+.email {
+  /* Grid with both texts in the same cell = stacked on top of each other. */
+  display: inline-grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+  column-gap: 0.45em;
+  text-transform: none; /* email addresses read better in lowercase */
+  letter-spacing: inherit;
+}
+
+.address,
+.copiedText {
+  grid-area: 1 / 1;
+  transition:
+    opacity var(--duration-base) var(--ease-out),
+    transform var(--duration-base) var(--ease-spring);
+}
+
+.copiedText {
+  color: var(--color-accent);
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+/* Copied: the address slides up and out, the confirmation slides in. */
+.email[data-copied='true'] .address {
+  opacity: 0;
+  transform: translateY(-6px);
+}
+
+.email[data-copied='true'] .copiedText {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.icon {
+  grid-area: 1 / 2;
+  width: 14px;
+  height: 14px;
+  color: var(--color-text-subtle);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.email:hover .icon {
+  color: var(--color-text);
+}
+
+.check,
+.email:hover .check {
+  color: var(--color-accent);
+}
+
+/* Pressed: a tiny shrink, like tapping an iOS button. */
+.email:active {
+  transform: scale(0.97);
+}
+
+/* ---------- External links ---------- */
 
 .link {
   display: inline-flex;
   align-items: center;
   gap: 0.3em;
-  color: var(--color-text);
-  text-transform: uppercase;
-  /* A thin underline that grows from the left on hover. */
-  background-image: linear-gradient(var(--color-accent), var(--color-accent));
-  background-repeat: no-repeat;
-  background-position: 0 100%;
-  background-size: 0% 1px;
-  transition: background-size var(--duration-base) var(--ease-out);
 }
 
-/* The email stays lowercase: addresses read better that way. */
-.emailItem .link {
-  text-transform: none;
+.slash {
+  margin-right: -0.3em;
+  color: var(--color-text-faint);
+  transition: color var(--duration-fast) var(--ease-out);
 }
 
-.link:hover {
-  background-size: 100% 1px;
+.link:hover .slash {
+  color: var(--color-accent);
 }
 
 .arrow {
@@ -54,67 +108,10 @@
   transform: translate(2px, -2px);
 }
 
-/* ---------- Copy button ---------- */
-
-.copyButton {
-  position: relative;
-  display: grid;
-  place-items: center;
-  width: 28px;
-  height: 28px;
-  border-radius: var(--radius-sm);
-  color: var(--color-text-subtle);
-  transition:
-    background-color var(--duration-fast) var(--ease-out),
-    color var(--duration-fast) var(--ease-out),
-    transform var(--duration-fast) var(--ease-out);
-}
-
-.copyButton:hover {
-  background-color: var(--color-surface);
-  color: var(--color-text);
-}
-
-/* Pressed: a tiny shrink, like tapping an iOS button. */
-.copyButton:active {
-  transform: scale(0.9);
-}
-
-.icon {
-  width: 15px;
-  height: 15px;
-}
-
-.check {
-  color: var(--color-accent);
-}
-
-/* iOS-style tooltip bubble above the button. */
-.tooltip {
-  position: absolute;
-  bottom: calc(100% + 6px);
-  left: 50%;
-  padding: 4px 10px;
-  border-radius: var(--radius-full);
-  background-color: var(--color-text);
-  color: var(--color-bg);
-  font-size: var(--text-xs);
-  white-space: nowrap;
-  pointer-events: none;
-  opacity: 0;
-  transform: translateX(-50%) translateY(4px) scale(0.9);
-  transition:
-    opacity var(--duration-fast) var(--ease-out),
-    transform var(--duration-base) var(--ease-spring);
-}
-
-.tooltip[data-visible='true'] {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0) scale(1);
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .link:hover .arrow {
+  .link:hover .arrow,
+  .email[data-copied='true'] .address,
+  .copiedText {
     transform: none;
   }
 }

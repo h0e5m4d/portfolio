@@ -1,59 +1,92 @@
 import { site } from '../../data/site.js';
 import { useCopyToClipboard } from '../../hooks/useCopyToClipboard.js';
+import CornerTree from '../CornerTree/CornerTree.jsx';
 import styles from './ContactLinks.module.css';
 
 /*
-  ContactLinks: email (with copy button) + external profile links.
+  ContactLinks: bottom-left corner.
 
-  It knows nothing about *where* it's placed. The footer uses it today;
-  a floating version or the About page could reuse it later. Placement
-  is the parent's job, passed in through `className`.
+    CONTACT/
+    ├ mail@tulinhtran.com ⧉
+    ├ /RÉSUMÉ ↗
+    ├ /LINKEDIN ↗
+    └ /INSTAGRAM ↗
+
+  Clicking the email copies it; no mail app pops up. The text itself
+  turns into "copied to clipboard" as feedback. Both strings are exactly
+  19 characters, and in a monospaced font that means identical width:
+  nothing around it moves.
 */
-export default function ContactLinks({ className = '' }) {
+const COPIED_TEXT = 'copied to clipboard';
+
+export default function ContactLinks() {
   const { copied, copy } = useCopyToClipboard();
 
-  return (
-    <ul className={`${styles.list} ${className}`}>
-      <li className={styles.emailItem}>
-        {/* The address itself opens the visitor's mail app... */}
-        <a href={`mailto:${site.email}`} className={styles.link}>
-          {site.email}
-        </a>
-
-        {/* ...and the button next to it copies it, for people who use
-            webmail and don't have a mail app set up. */}
-        <button
-          type="button"
-          onClick={() => copy(site.email)}
-          className={styles.copyButton}
-          aria-label="Copy email address"
-        >
-          {copied ? <CheckIcon /> : <CopyIcon />}
-          <span className={styles.tooltip} data-visible={copied} aria-hidden="true">
-            Copied!
-          </span>
-        </button>
-
-        {/* aria-live: screen readers announce changes to this text,
-            so blind visitors also hear that the copy worked. */}
-        <span className="visually-hidden" aria-live="polite">
-          {copied ? 'Email address copied' : ''}
+  const emailRow = (
+    <>
+      <button
+        type="button"
+        onClick={() => copy(site.email)}
+        className={`${styles.email} link-wavy`}
+        data-copied={copied}
+        title="Copy email address"
+      >
+        {/* Both texts are always rendered on top of each other and
+            cross-fade, so the button never changes size. */}
+        <span className={styles.address}>{site.email}</span>
+        <span className={styles.copiedText} aria-hidden="true">
+          {COPIED_TEXT}
         </span>
-      </li>
+        {copied ? <CheckIcon /> : <CopyIcon />}
+        <span className="visually-hidden"> (copy email address)</span>
+      </button>
 
-      {site.links.map((link) => (
-        <li key={link.label}>
-          {/* target="_blank" opens a new tab; rel="noopener noreferrer"
-              stops the new page from controlling this one (security). */}
-          <a href={link.href} target="_blank" rel="noopener noreferrer" className={styles.link}>
-            {link.label}
-            <ArrowIcon />
-            <span className="visually-hidden"> (opens in a new tab)</span>
-          </a>
-        </li>
-      ))}
-    </ul>
+      {/* aria-live: screen readers announce changes to this text,
+          so blind visitors also hear that the copy worked. */}
+      <span className="visually-hidden" aria-live="polite">
+        {copied ? 'Email address copied to clipboard' : ''}
+      </span>
+    </>
   );
+
+  const items = [
+    { key: 'email', content: emailRow },
+    ...site.links.map((link) => ({
+      key: link.label,
+      content: (
+        // target="_blank" opens a new tab; rel="noopener noreferrer"
+        // stops the new page from controlling this one (security).
+        <a
+          href={link.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`${styles.link} link-wavy`}
+        >
+          <span className={styles.slash} aria-hidden="true">
+            /
+          </span>
+          {link.label}
+          <ArrowIcon />
+          <span className="visually-hidden"> (opens in a new tab)</span>
+        </a>
+      ),
+    })),
+  ];
+
+  // Every corner's root has a symbol: ⁑ · weather icon · @ · status dot.
+  const root = (
+    <span className={styles.root}>
+      <span className={styles.at} aria-hidden="true">
+        @
+      </span>
+      Contact
+      <span className={styles.rootSlash} aria-hidden="true">
+        /
+      </span>
+    </span>
+  );
+
+  return <CornerTree root={root} items={items} />;
 }
 
 const iconProps = {
