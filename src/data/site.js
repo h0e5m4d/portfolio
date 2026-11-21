@@ -22,6 +22,5 @@ export const site = {
       href: 'https://drive.google.com/file/d/1vGpHemBvDVFPclnhLyAy4TIyUWlkSbrv/view?usp=drive_link',
     },
     { label: 'LinkedIn', href: 'https://www.linkedin.com/in/tulinhtrann' },
-    { label: 'Instagram', href: 'https://www.instagram.com/2linh0/' },
   ],
 };

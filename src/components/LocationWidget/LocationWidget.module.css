@@ -34,6 +34,10 @@
   text-transform: lowercase;
 }
 
+.placeholder {
+  color: var(--color-text-faint);
+}
+
 @keyframes blink {
   50% {
     opacity: 0.35;

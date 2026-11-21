@@ -55,41 +55,30 @@ h4 {
 }
 
 /*
-  Link underline: a thin red line that grows from the left on hover.
-  The current page (aria-current="page") gets a still red *wave*
-  instead, like the squiggle a code editor draws under a word.
+  Current-page wave: the link to the page you're on (aria-current="page")
+  gets a still red wave underneath, like the squiggle a code editor draws
+  under a word. Hovering shows no line; hover feedback comes from each
+  component (red slash, small nudge).
 
-  How the wave works: a tiny SVG wave is used as a *mask* over a red
-  bar. A mask means the color comes from CSS (var(--color-accent)), so
-  it switches with light/dark mode automatically. An SVG with a fixed
-  color couldn't.
+  How: a tiny SVG wave is used as a *mask* over a red bar. A mask means
+  the color comes from CSS (var(--color-accent)), so it switches with
+  light/dark mode automatically. An SVG with a fixed color couldn't.
 */
 .link-underline {
   position: relative;
 }
 
-.link-underline::after {
+.link-underline[aria-current='page']::after {
   content: '';
   position: absolute;
   left: 0;
-  bottom: -2px;
-  width: 0;
-  height: 1px;
-  background-color: var(--color-accent);
-  transition: width var(--duration-base) var(--ease-out);
-  pointer-events: none;
-}
-
-.link-underline:hover::after {
-  width: 100%;
-}
-
-.link-underline[aria-current='page']::after {
   bottom: -4px;
   width: 100%;
   height: 4px;
+  background-color: var(--color-accent);
   -webkit-mask: var(--wave) repeat-x 0 0 / 8px 4px;
   mask: var(--wave) repeat-x 0 0 / 8px 4px;
+  pointer-events: none;
 }
 
 :root {

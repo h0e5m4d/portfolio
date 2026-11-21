@@ -12,10 +12,11 @@ import styles from './LocationWidget.module.css';
 
     ☀ TAIPEI, TW
     12:19:24pm
+    21°C
     [children]
 
-  The icon shows Taipei's current weather; the words are only for
-  screen readers. `children` becomes the last row: the Layout passes the
+  The icon shows Taipei's current weather; the condition in words is
+  only for screen readers. `children` becomes the last row: the Layout passes the
   theme switch, so this component doesn't need to know about themes.
 */
 export default function LocationWidget({ children }) {
@@ -51,6 +52,18 @@ export default function LocationWidget({ children }) {
             {time.second}
             <span className={styles.period}>{time.period}</span>
           </time>
+        </span>
+      ),
+    },
+    {
+      key: 'temperature',
+      // Always present so every corner has four rows. While loading,
+      // or if the weather service is down, a faint placeholder holds it.
+      content: weather.data ? (
+        <span className={styles.subtle}>{weather.data.temperature}°C</span>
+      ) : (
+        <span className={styles.placeholder} aria-hidden="true">
+          --°C
         </span>
       ),
     },

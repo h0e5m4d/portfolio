@@ -30,17 +30,23 @@
 .link {
   display: inline-flex;
   align-items: baseline;
+  transition: transform var(--duration-base) var(--ease-spring);
 }
 
-/* Hover (and the current page): the slash turns red. The underline
-   (straight on hover, wavy on the current page) comes from the global
-   .link-underline class. */
+/* Hover: the link nudges right, like moving a text cursor. */
+.link:hover {
+  transform: translateX(3px);
+}
+
+/* Hover (and the current page): the slash turns red. The current page's
+   wave comes from the global .link-underline class. */
 .link:hover .slash,
 .link[aria-current='page'] .slash {
   color: var(--color-accent);
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .link:hover,
   .home:hover .logoMark {
     transform: none;
   }

@@ -9,8 +9,7 @@ import styles from './ContactLinks.module.css';
                     CONTACT/ @
      mail@tulinhtran.com ⧉ ┤
                 /RÉSUMÉ ↗ ┤
-              /LINKEDIN ↗ ┤
-             /INSTAGRAM ↗ ┘
+              /LINKEDIN ↗ ┘
 
   Clicking the email copies it; no mail app pops up. The text itself
   turns into "COPIED TO CLIPBOARD" as feedback. Both strings are exactly
