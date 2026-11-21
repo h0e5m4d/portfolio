@@ -1,0 +1,57 @@
+/*
+  Page shell: a flex column so the footer (Step 3) sits at the bottom
+  even on short pages, because <main> grows to fill the space.
+*/
+.shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh; /* dvh = real visible height on mobile browsers */
+}
+
+.header {
+  /* flex-wrap: on a narrow phone the right tree drops below the left one,
+     and margin-left: auto keeps it hugging the right edge. */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-5);
+  width: 100%;
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding: var(--page-gutter);
+}
+
+.header > :last-child {
+  margin-left: auto;
+}
+
+.main {
+  flex: 1;
+  width: 100%;
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding: var(--space-6) var(--page-gutter) var(--space-section);
+}
+
+/* ---------- Skip link ----------
+   Hidden above the screen until it receives keyboard focus. */
+.skipLink {
+  position: fixed;
+  top: var(--space-3);
+  left: var(--space-3);
+  z-index: 100;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  background-color: var(--color-text);
+  color: var(--color-bg);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  transform: translateY(-200%);
+  transition: transform var(--duration-base) var(--ease-spring);
+}
+
+.skipLink:focus-visible {
+  transform: translateY(0);
+}

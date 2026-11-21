@@ -1,0 +1,53 @@
+/* Tree structure and lines come from CornerTree; this file only styles
+   what's specific to the nav. */
+
+.home {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.35em;
+  font-weight: var(--weight-medium);
+}
+
+.logoMark {
+  display: inline-block;
+  transition: transform var(--duration-slow) var(--ease-spring);
+}
+
+/* A small reward for hovering the logo: the mark spins. */
+.home:hover .logoMark {
+  transform: rotate(180deg);
+}
+
+.slash {
+  color: var(--color-text-faint);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.home .slash {
+  margin-left: -0.35em;
+}
+
+.link {
+  display: inline-flex;
+  align-items: baseline;
+  transition: transform var(--duration-base) var(--ease-spring);
+}
+
+/* Hover: the link nudges right, like moving a text cursor. */
+.link:hover {
+  transform: translateX(3px);
+}
+
+/* Hover (and the current page): the slash turns red. The current page's
+   wave comes from the global .link-underline class. */
+.link:hover .slash,
+.link[aria-current='page'] .slash {
+  color: var(--color-accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .link:hover,
+  .home:hover .logoMark {
+    transform: none;
+  }
+}

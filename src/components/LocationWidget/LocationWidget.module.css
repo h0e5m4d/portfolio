@@ -1,0 +1,51 @@
+/* Row layout comes from CornerTree; this styles the contents. */
+
+.place {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  cursor: default;
+}
+
+.icon {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  color: var(--color-accent);
+}
+
+.subtle {
+  color: var(--color-text-subtle);
+  /*
+    Tabular numbers: every digit gets the same width, so the clock
+    doesn't wiggle sideways as "1" (narrow) changes to "8" (wide).
+  */
+  font-variant-numeric: tabular-nums;
+}
+
+.colon {
+  margin-inline: 0.05em;
+  /* The colons blink softly, like a digital clock. */
+  animation: blink 2s steps(1, end) infinite;
+}
+
+.period {
+  margin-left: 0.15em;
+  text-transform: lowercase;
+}
+
+.placeholder {
+  color: var(--color-text-faint);
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .colon {
+    animation: none;
+  }
+}

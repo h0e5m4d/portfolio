@@ -1,0 +1,118 @@
+/*
+  The tree lines are drawn with CSS, not characters (├ └), because
+  characters leave gaps between lines. Each item draws:
+    ::before  the vertical line
+    ::after   the short horizontal tick pointing at its content
+  The last item's vertical line stops halfway, making the └ corner.
+
+  align="right" mirrors everything: lines on the right, text right-aligned.
+*/
+.tree {
+  --line: 1px solid var(--color-text-faint);
+  --indent: 0.4em; /* where the vertical line sits, under the root */
+  --row: 1.5rem; /* every row has the same height, like lines in an editor */
+
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  line-height: 1.45;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.root {
+  display: flex;
+  align-items: center;
+  gap: 0.45em;
+  min-height: var(--row);
+  color: var(--color-text);
+}
+
+.branches {
+  margin-left: var(--indent);
+}
+
+.item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.45em;
+  min-height: var(--row);
+  padding-left: 1.1em;
+  color: var(--color-text);
+}
+
+.item::before,
+.item::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  pointer-events: none;
+}
+
+/* Vertical line, full height of the row... */
+.item::before {
+  top: 0;
+  bottom: 0;
+  border-left: var(--line);
+}
+
+/* ...except the last one, which stops in the middle: └ */
+.item:last-child::before {
+  bottom: 50%;
+}
+
+/* Horizontal tick at the vertical middle of the row. */
+.item::after {
+  top: 50%;
+  width: 0.75em;
+  border-top: var(--line);
+}
+
+/* ---------- Mirrored (right-aligned) ---------- */
+
+.tree[data-align='right'] {
+  text-align: right;
+}
+
+.tree[data-align='right'] .root,
+.tree[data-align='right'] .item {
+  justify-content: flex-end;
+}
+
+.tree[data-align='right'] .branches {
+  margin-left: 0;
+  margin-right: var(--indent);
+}
+
+.tree[data-align='right'] .item {
+  padding-left: 0;
+  padding-right: 1.1em;
+}
+
+.tree[data-align='right'] .item::before,
+.tree[data-align='right'] .item::after {
+  left: auto;
+  right: 0;
+}
+
+.tree[data-align='right'] .item::before {
+  border-left: none;
+  border-right: var(--line);
+}
+
+/* ---------- No lines ----------
+   Same rows and rhythm, but no branch lines and no indent, so every
+   row lines up with the root. */
+
+.tree[data-lines='false'] .branches {
+  margin-inline: 0;
+}
+
+.tree[data-lines='false'] .item {
+  padding-inline: 0;
+}
+
+.tree[data-lines='false'] .item::before,
+.tree[data-lines='false'] .item::after {
+  display: none;
+}

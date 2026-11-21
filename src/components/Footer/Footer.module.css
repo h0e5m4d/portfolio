@@ -1,0 +1,89 @@
+/*
+  Bottom-left and bottom-right corners, the mirror image of the header.
+  flex-wrap: on a narrow phone the right tree drops below the left one,
+  and margin-left: auto keeps it hugging the right edge.
+*/
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--space-6) var(--space-5);
+  width: 100%;
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding: var(--space-7) var(--page-gutter) var(--page-gutter);
+}
+
+.footer > :last-child {
+  margin-left: auto;
+}
+
+/* ---------- Status ---------- */
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+}
+
+.dot {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--color-accent);
+}
+
+/* A soft ring that pulses outward, like a "live" indicator. */
+.dot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background-color: var(--color-accent);
+  animation: pulse 2s var(--ease-out) infinite;
+}
+
+.status[data-available='false'] .dot {
+  background-color: var(--color-text-faint);
+}
+
+.status[data-available='false'] .dot::after {
+  display: none;
+}
+
+@keyframes pulse {
+  from {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(2.8);
+  }
+}
+
+/* ---------- Rows ---------- */
+
+.subtle {
+  color: var(--color-text-subtle);
+}
+
+/* Legal link: grey like the rows around it, darkens on hover. */
+.subtleLink {
+  color: var(--color-text-subtle);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.subtleLink:hover,
+.subtleLink[aria-current='page'] {
+  color: var(--color-text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dot::after {
+    animation: none;
+  }
+}
