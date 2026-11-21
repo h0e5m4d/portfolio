@@ -71,20 +71,15 @@
   color: var(--color-text-subtle);
 }
 
-.link {
-  color: var(--color-text);
-  text-transform: uppercase;
-  letter-spacing: inherit;
-}
-
-.slash {
-  margin-right: 0.05em;
-  color: var(--color-text-faint);
+/* Legal link: grey like the rows around it, darkens on hover. */
+.subtleLink {
+  color: var(--color-text-subtle);
   transition: color var(--duration-fast) var(--ease-out);
 }
 
-.link:hover .slash {
-  color: var(--color-accent);
+.subtleLink:hover,
+.subtleLink[aria-current='page'] {
+  color: var(--color-text);
 }
 
 @media (prefers-reduced-motion: reduce) {

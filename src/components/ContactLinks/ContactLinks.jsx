@@ -4,20 +4,20 @@ import CornerTree from '../CornerTree/CornerTree.jsx';
 import styles from './ContactLinks.module.css';
 
 /*
-  ContactLinks: bottom-left corner.
+  ContactLinks: top-right corner, a mirrored file tree.
 
-    CONTACT/
-    ├ mail@tulinhtran.com ⧉
-    ├ /RÉSUMÉ ↗
-    ├ /LINKEDIN ↗
-    └ /INSTAGRAM ↗
+                    CONTACT/ @
+     mail@tulinhtran.com ⧉ ┤
+                /RÉSUMÉ ↗ ┤
+              /LINKEDIN ↗ ┤
+             /INSTAGRAM ↗ ┘
 
   Clicking the email copies it; no mail app pops up. The text itself
-  turns into "copied to clipboard" as feedback. Both strings are exactly
+  turns into "COPIED TO CLIPBOARD" as feedback. Both strings are exactly
   19 characters, and in a monospaced font that means identical width:
   nothing around it moves.
 */
-const COPIED_TEXT = 'copied to clipboard';
+const COPIED_TEXT = 'Copied to clipboard';
 
 export default function ContactLinks() {
   const { copied, copy } = useCopyToClipboard();
@@ -27,7 +27,7 @@ export default function ContactLinks() {
       <button
         type="button"
         onClick={() => copy(site.email)}
-        className={`${styles.email} link-wavy`}
+        className={`${styles.email} link-underline`}
         data-copied={copied}
         title="Copy email address"
       >
@@ -60,7 +60,7 @@ export default function ContactLinks() {
           href={link.href}
           target="_blank"
           rel="noopener noreferrer"
-          className={`${styles.link} link-wavy`}
+          className={`${styles.link} link-underline`}
         >
           <span className={styles.slash} aria-hidden="true">
             /
@@ -73,20 +73,20 @@ export default function ContactLinks() {
     })),
   ];
 
-  // Every corner's root has a symbol: ⁑ · weather icon · @ · status dot.
+  // Mirror of the nav's "⁑ TULINHTRAN/": the symbol sits on the outer edge.
   const root = (
     <span className={styles.root}>
-      <span className={styles.at} aria-hidden="true">
-        @
-      </span>
       Contact
       <span className={styles.rootSlash} aria-hidden="true">
         /
       </span>
+      <span className={styles.at} aria-hidden="true">
+        @
+      </span>
     </span>
   );
 
-  return <CornerTree root={root} items={items} />;
+  return <CornerTree align="right" root={root} items={items} />;
 }
 
 const iconProps = {

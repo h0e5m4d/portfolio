@@ -38,6 +38,7 @@
 
 .copiedText {
   color: var(--color-accent);
+  text-transform: uppercase;
   opacity: 0;
   transform: translateY(6px);
 }

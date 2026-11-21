@@ -2,8 +2,7 @@ import { useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 
 import Nav from '../Nav/Nav.jsx';
-import LocationWidget from '../LocationWidget/LocationWidget.jsx';
-import ThemeToggle from '../ThemeToggle/ThemeToggle.jsx';
+import ContactLinks from '../ContactLinks/ContactLinks.jsx';
 import Footer from '../Footer/Footer.jsx';
 import styles from './Layout.module.css';
 
@@ -31,9 +30,7 @@ export default function Layout() {
       <header className={styles.header}>
         {/* Top-left and top-right corners. The footer mirrors these. */}
         <Nav />
-        <LocationWidget>
-          <ThemeToggle />
-        </LocationWidget>
+        <ContactLinks />
       </header>
 
       <main id="main" className={styles.main}>

@@ -16,11 +16,13 @@ import styles from './CornerTree.module.css';
     root   – content of the top row
     items  – array of { key, content }
     align  – 'left' (default) or 'right' (mirrored)
+    lines  – true (default) draws the tree; false keeps the same rows
+             and spacing without branch lines
     className – extra classes from the parent, e.g. for positioning
 */
-export default function CornerTree({ root, items, align = 'left', className = '' }) {
+export default function CornerTree({ root, items, align = 'left', lines = true, className = '' }) {
   return (
-    <div className={`${styles.tree} ${className}`} data-align={align}>
+    <div className={`${styles.tree} ${className}`} data-align={align} data-lines={lines}>
       <div className={styles.root}>{root}</div>
       <ul className={styles.branches}>
         {items.map((item) => (

@@ -8,15 +8,15 @@ import WeatherIcon, { PinIcon } from './WeatherIcon.jsx';
 import styles from './LocationWidget.module.css';
 
 /*
-  LocationWidget: top-right corner, a mirrored file tree.
+  LocationWidget: bottom-left corner. Same rows as a tree, no lines.
 
-                 TAIPEI, TW ☀
-             12:19:24pm ┤
-      21°C · PARTLY CLOUDY ┤
-               [children] ┘
+    ☀ TAIPEI, TW
+    12:19:24pm
+    [children]
 
-  `children` becomes the last row. The Layout passes the theme switch,
-  so this component doesn't need to know anything about themes.
+  The icon shows Taipei's current weather; the words are only for
+  screen readers. `children` becomes the last row: the Layout passes the
+  theme switch, so this component doesn't need to know about themes.
 */
 export default function LocationWidget({ children }) {
   const now = useNow();
@@ -27,12 +27,13 @@ export default function LocationWidget({ children }) {
 
   const root = (
     <span className={styles.place} title={relativeToVisitor(now, location.timeZone)}>
-      {location.city}, {location.countryCode}
       {condition ? (
         <WeatherIcon icon={condition.icon} isDay={weather.data.isDay} className={styles.icon} />
       ) : (
         <PinIcon className={styles.icon} />
       )}
+      {location.city}, {location.countryCode}
+      {condition && <span className="visually-hidden">, {condition.label}</span>}
     </span>
   );
 
@@ -42,7 +43,7 @@ export default function LocationWidget({ children }) {
       content: (
         <span className={styles.subtle}>
           <span className="visually-hidden">Local time </span>
-          <time dateTime={now.toISOString()} className={styles.time}>
+          <time dateTime={now.toISOString()}>
             {time.hour}
             <span className={styles.colon}>:</span>
             {time.minute}
@@ -55,28 +56,7 @@ export default function LocationWidget({ children }) {
     },
   ];
 
-  // The weather row only exists if there's something to say.
-  // While loading, a faint placeholder keeps the corner from jumping.
-  if (weather.status !== 'error') {
-    items.push({
-      key: 'weather',
-      content: weather.data ? (
-        <span className={styles.subtle}>
-          {weather.data.temperature}°C
-          <span className={styles.dot} aria-hidden="true">
-            ·
-          </span>
-          {condition.label}
-        </span>
-      ) : (
-        <span className={styles.placeholder} aria-hidden="true">
-          --°C
-        </span>
-      ),
-    });
-  }
-
   if (children) items.push({ key: 'extra', content: children });
 
-  return <CornerTree align="right" root={root} items={items} />;
+  return <CornerTree lines={false} root={root} items={items} />;
 }

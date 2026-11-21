@@ -38,7 +38,7 @@ export default function Nav() {
     content: (
       // NavLink adds aria-current="page" to the current page's link.
       // Without `end`, /projects stays active on /projects/smartbroker.
-      <NavLink to={link.to} className={`${styles.link} link-wavy`}>
+      <NavLink to={link.to} className={`${styles.link} link-underline`}>
         <span className={styles.slash} aria-hidden="true">
           /
         </span>

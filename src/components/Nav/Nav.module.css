@@ -32,8 +32,9 @@
   align-items: baseline;
 }
 
-/* Hover (and the current page): the slash turns red. The wavy line
-   itself comes from the global .link-wavy class. */
+/* Hover (and the current page): the slash turns red. The underline
+   (straight on hover, wavy on the current page) comes from the global
+   .link-underline class. */
 .link:hover .slash,
 .link[aria-current='page'] .slash {
   color: var(--color-accent);

@@ -1,4 +1,4 @@
-/* Tree structure comes from CornerTree; this styles the contents. */
+/* Row layout comes from CornerTree; this styles the contents. */
 
 .place {
   display: inline-flex;
@@ -32,15 +32,6 @@
 .period {
   margin-left: 0.15em;
   text-transform: lowercase;
-}
-
-.dot {
-  margin-inline: 0.5em;
-  color: var(--color-text-faint);
-}
-
-.placeholder {
-  color: var(--color-text-faint);
 }
 
 @keyframes blink {

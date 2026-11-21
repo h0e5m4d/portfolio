@@ -99,3 +99,20 @@
   border-left: none;
   border-right: var(--line);
 }
+
+/* ---------- No lines ----------
+   Same rows and rhythm, but no branch lines and no indent, so every
+   row lines up with the root. */
+
+.tree[data-lines='false'] .branches {
+  margin-inline: 0;
+}
+
+.tree[data-lines='false'] .item {
+  padding-inline: 0;
+}
+
+.tree[data-lines='false'] .item::before,
+.tree[data-lines='false'] .item::after {
+  display: none;
+}

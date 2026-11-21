@@ -1,18 +1,20 @@
 import { Link } from 'react-router-dom';
 
 import { site } from '../../data/site.js';
-import ContactLinks from '../ContactLinks/ContactLinks.jsx';
 import CornerTree from '../CornerTree/CornerTree.jsx';
+import LocationWidget from '../LocationWidget/LocationWidget.jsx';
+import ThemeToggle from '../ThemeToggle/ThemeToggle.jsx';
 import styles from './Footer.module.css';
 
 /*
-  Footer: the two bottom corners, mirroring the header.
+  Footer: the two bottom corners. Same rows as the top trees, no lines.
 
-    CONTACT/                          ● OPEN FOR INTERNSHIPS
-    ├ mail@tulinhtran.com ⧉                FROM APRIL 2027 ┤
-    ├ /RÉSUMÉ ↗                        © 2026 TU LINH TRAN ┤
-    ├ /LINKEDIN ↗                       /IMPRINT & PRIVACY ┤
-    └ /INSTAGRAM ↗                          BACK TO TOP ↑ ┘
+    ☀ TAIPEI, TW                      OPEN FOR INTERNSHIPS ●
+    12:19:24pm                             FROM APRIL 2027
+    [theme switch]                     © 2026 TU LINH TRAN
+                                         IMPRINT & PRIVACY
+
+  "Back to top" will live at the end of each page instead (page steps).
 */
 export default function Footer() {
   const year = new Date().getFullYear(); // never needs updating by hand
@@ -24,7 +26,7 @@ export default function Footer() {
     </span>
   );
 
-  const infoItems = [
+  const statusItems = [
     { key: 'detail', content: <span className={styles.subtle}>{site.status.detail}</span> },
     {
       key: 'copyright',
@@ -37,34 +39,19 @@ export default function Footer() {
     {
       key: 'legal',
       content: (
-        <Link to="/legal" className={`${styles.link} link-wavy`}>
-          <span className={styles.slash} aria-hidden="true">
-            /
-          </span>
+        <Link to="/legal" className={`${styles.subtleLink} link-underline`}>
           Imprint &amp; Privacy
         </Link>
-      ),
-    },
-    {
-      key: 'top',
-      content: (
-        <button type="button" onClick={scrollToTop} className={`${styles.link} link-wavy`}>
-          Back to top <span aria-hidden="true">↑</span>
-        </button>
       ),
     },
   ];
 
   return (
     <footer className={styles.footer}>
-      <ContactLinks />
-      <CornerTree align="right" root={statusRoot} items={infoItems} />
+      <LocationWidget>
+        <ThemeToggle />
+      </LocationWidget>
+      <CornerTree align="right" lines={false} root={statusRoot} items={statusItems} />
     </footer>
   );
-}
-
-function scrollToTop() {
-  // Smooth scrolling is nice, unless the visitor asked for less motion.
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
 }
