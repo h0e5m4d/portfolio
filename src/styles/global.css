@@ -42,6 +42,13 @@ h4 {
   color: var(--color-bg);
 }
 
+/* While a modal dialog (e.g. the archive lightbox) is open, the page
+   behind it shouldn't scroll. :has() checks "does the page contain an
+   open dialog?" without any JavaScript. */
+html:has(dialog[open]) {
+  overflow: hidden;
+}
+
 /* ---------- Shared utility classes ----------
    Small, reusable helpers. Kept deliberately few. */
 
