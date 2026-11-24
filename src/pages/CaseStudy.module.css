@@ -1,0 +1,192 @@
+/*
+  Case-study layout: a grid with NAMED column lines.
+
+    full-start   wide-start   content-start      content-end   wide-end   full-end
+        |  space    |  margin   |   reading width   |  margin    |  space    |
+
+  Every child sits in the `content` column (comfortable reading width).
+  A child with data-size="wide" stretches to the `wide` lines, and
+  data-size="full" to the edges. On a phone the side columns shrink to
+  nothing, so everything is simply full width.
+
+  This is how one page can mix narrow text with wide images without
+  wrapping each element in its own container.
+
+  The content column is min(44rem, 100%): 44rem, or the whole width
+  if the screen is narrower. Because that width is definite, the side
+  columns only get what's left over, which on a phone is nothing.
+*/
+.article {
+  display: grid;
+  grid-template-columns:
+    [full-start] minmax(0, 1fr)
+    [wide-start] minmax(0, 9rem)
+    [content-start] min(44rem, 100%)
+    [content-end] minmax(0, 9rem)
+    [wide-end] minmax(0, 1fr)
+    [full-end];
+  row-gap: var(--space-8);
+}
+
+.article > * {
+  grid-column: content;
+}
+
+.article > [data-size='wide'] {
+  grid-column: wide;
+}
+
+.article > [data-size='full'] {
+  grid-column: full;
+}
+
+/* Blocks sit a bit closer together than the big page sections. */
+.block + .block {
+  margin-top: calc(var(--space-2) * -1);
+}
+
+/* ---------- Draft notice ---------- */
+
+.draft {
+  justify-self: start;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-accent);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+/* ---------- Header ---------- */
+
+.header {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.back {
+  justify-self: start;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-text-subtle);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.back span {
+  display: inline-block;
+  color: var(--color-accent);
+  transition: transform var(--duration-base) var(--ease-spring);
+}
+
+.back:hover {
+  color: var(--color-text);
+}
+
+.back:hover span {
+  transform: translateX(-3px);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.tags li {
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-surface);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.title {
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-medium);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.intro {
+  font-size: var(--text-md);
+  line-height: var(--leading-normal);
+  color: var(--color-text-muted);
+}
+
+/* Facts: small label above each value, flowing into as many columns
+   as fit. */
+.facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: var(--space-4) var(--space-5);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-border);
+}
+
+.fact {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.fact dt {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-text-subtle);
+}
+
+.fact dd {
+  font-size: var(--text-base);
+}
+
+/* ---------- Cover ---------- */
+
+.cover {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  background-color: var(--color-surface);
+}
+
+.cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 5%;
+}
+
+/* ---------- Coming soon ---------- */
+
+.soon {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-6);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.soonLabel {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.soonText {
+  font-size: var(--text-md);
+  color: var(--color-text-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .back:hover span {
+    transform: none;
+  }
+}
