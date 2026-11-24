@@ -10,7 +10,10 @@
 }
 
 .header {
+  /* flex-wrap: on a narrow phone the right tree drops below the left one,
+     and margin-left: auto keeps it hugging the right edge. */
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: flex-start;
   gap: var(--space-5);
@@ -20,20 +23,8 @@
   padding: var(--page-gutter);
 }
 
-.controls {
-  display: flex;
-  align-items: center;
-  gap: var(--space-4);
-}
-
-/* Small phones: the nav, widget and switch don't fit in one row,
-   so the switch moves under the widget, aligned right. */
-@media (max-width: 479px) {
-  .controls {
-    flex-direction: column;
-    align-items: flex-end;
-    gap: var(--space-3);
-  }
+.header > :last-child {
+  margin-left: auto;
 }
 
 .main {

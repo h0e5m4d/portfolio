@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 
 import Nav from '../Nav/Nav.jsx';
-import LocationWidget from '../LocationWidget/LocationWidget.jsx';
-import ThemeToggle from '../ThemeToggle/ThemeToggle.jsx';
+import ContactLinks from '../ContactLinks/ContactLinks.jsx';
+import Footer from '../Footer/Footer.jsx';
 import styles from './Layout.module.css';
 
 /*
@@ -28,18 +28,16 @@ export default function Layout() {
       </a>
 
       <header className={styles.header}>
+        {/* Top-left and top-right corners. The footer mirrors these. */}
         <Nav />
-        <div className={styles.controls}>
-          <LocationWidget />
-          <ThemeToggle />
-        </div>
+        <ContactLinks />
       </header>
 
       <main id="main" className={styles.main}>
         <Outlet />
       </main>
 
-      {/* Step 3: Footer + contact links */}
+      <Footer />
     </div>
   );
 }

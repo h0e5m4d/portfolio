@@ -3,71 +3,73 @@ import { useNow } from '../../hooks/useNow.js';
 import { useWeather } from '../../hooks/useWeather.js';
 import { describeWeather } from '../../utils/weather.js';
 import { relativeToVisitor, timeParts } from '../../utils/time.js';
+import CornerTree from '../CornerTree/CornerTree.jsx';
 import WeatherIcon, { PinIcon } from './WeatherIcon.jsx';
 import styles from './LocationWidget.module.css';
 
 /*
-  LocationWidget: where you are, your local time, and the weather there.
+  LocationWidget: bottom-left corner. Same rows as a tree, no lines.
 
-      ☀ TAIPEI, TW
-      04:05:20pm · 20°C
+    ☀ TAIPEI, TW
+    12:19:24pm
+    21°C
+    [children]
 
-  The component only *combines* things. The data comes from
-  data/location.js, the ticking clock from useNow, the weather from
-  useWeather, and formatting from utils. Each piece can be changed or
-  tested on its own.
+  The icon shows Taipei's current weather; the condition in words is
+  only for screen readers. `children` becomes the last row: the Layout passes the
+  theme switch, so this component doesn't need to know about themes.
 */
-export default function LocationWidget() {
+export default function LocationWidget({ children }) {
   const now = useNow();
   const weather = useWeather(location);
 
   const time = timeParts(now, location.timeZone);
   const condition = weather.data ? describeWeather(weather.data.code) : null;
 
-  return (
-    <div className={styles.widget} title={relativeToVisitor(now, location.timeZone)}>
-      <p className={styles.place}>
-        {condition ? (
-          <WeatherIcon icon={condition.icon} isDay={weather.data.isDay} className={styles.icon} />
-        ) : (
-          <PinIcon className={styles.icon} />
-        )}
-        <span>
-          {location.city}, {location.countryCode}
-        </span>
-        {/* Icons are invisible to screen readers, so say it in words too. */}
-        {condition && <span className="visually-hidden">, {condition.label}</span>}
-      </p>
-
-      <p className={styles.meta}>
-        <span className="visually-hidden">Local time </span>
-        <time dateTime={now.toISOString()} className={styles.time}>
-          {time.hour}
-          <span className={styles.colon}>:</span>
-          {time.minute}
-          <span className={styles.colon}>:</span>
-          {time.second}
-          <span className={styles.period}>{time.period}</span>
-        </time>
-
-        {/* While loading, a faint placeholder holds the space so the
-            time doesn't jump sideways when the temperature arrives.
-            If the weather fails, the temperature simply disappears. */}
-        {weather.status !== 'error' && (
-          <>
-            <span className={styles.dot} aria-hidden="true">
-              ·
-            </span>
-            {weather.data ? (
-              <span>{weather.data.temperature}°C</span>
-            ) : (
-              <span className={styles.placeholder} aria-hidden="true">
-                --°C
-              </span>
-            )}
-          </>
-        )}
-      </p>
-    </div>
+  const root = (
+    <span className={styles.place} title={relativeToVisitor(now, location.timeZone)}>
+      {condition ? (
+        <WeatherIcon icon={condition.icon} isDay={weather.data.isDay} className={styles.icon} />
+      ) : (
+        <PinIcon className={styles.icon} />
+      )}
+      {location.city}, {location.countryCode}
+      {condition && <span className="visually-hidden">, {condition.label}</span>}
+    </span>
   );
+
+  const items = [
+    {
+      key: 'time',
+      content: (
+        <span className={styles.subtle}>
+          <span className="visually-hidden">Local time </span>
+          <time dateTime={now.toISOString()}>
+            {time.hour}
+            <span className={styles.colon}>:</span>
+            {time.minute}
+            <span className={styles.colon}>:</span>
+            {time.second}
+            <span className={styles.period}>{time.period}</span>
+          </time>
+        </span>
+      ),
+    },
+    {
+      key: 'temperature',
+      // Always present so every corner has four rows. While loading,
+      // or if the weather service is down, a faint placeholder holds it.
+      content: weather.data ? (
+        <span className={styles.subtle}>{weather.data.temperature}°C</span>
+      ) : (
+        <span className={styles.placeholder} aria-hidden="true">
+          --°C
+        </span>
+      ),
+    },
+  ];
+
+  if (children) items.push({ key: 'extra', content: children });
+
+  return <CornerTree lines={false} root={root} items={items} />;
 }

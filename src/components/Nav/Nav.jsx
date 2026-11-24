@@ -1,13 +1,15 @@
 import { NavLink } from 'react-router-dom';
+
+import CornerTree from '../CornerTree/CornerTree.jsx';
 import styles from './Nav.module.css';
 
 /*
-  Nav: the file-tree navigation, a nod to code editors' file explorers.
+  Nav: top-left corner. The file-tree navigation.
 
     ⁑ TULINHTRAN/
-      ├ /ABOUT
-      ├ /PROJECTS
-      └ /ARCHIVE
+    ├ /ABOUT
+    ├ /PROJECTS
+    └ /ARCHIVE
 
   The links are data, so adding a page means adding one line here.
 */
@@ -18,37 +20,36 @@ const links = [
 ];
 
 export default function Nav() {
-  return (
-    <nav aria-label="Main" className={styles.nav}>
-      {/* `end` = only "active" on exactly "/", not on every page. */}
-      <NavLink to="/" end className={styles.root}>
-        <span className={styles.logoMark} aria-hidden="true">
-          ⁑
-        </span>
-        TULINHTRAN
+  const root = (
+    // `end` = only "active" on exactly "/", not on every page.
+    <NavLink to="/" end className={styles.home}>
+      <span className={styles.logoMark} aria-hidden="true">
+        ⁑
+      </span>
+      <span>TULINHTRAN</span>
+      <span className={styles.slash} aria-hidden="true">
+        /
+      </span>
+    </NavLink>
+  );
+
+  const items = links.map((link) => ({
+    key: link.to,
+    content: (
+      // NavLink adds aria-current="page" to the current page's link.
+      // Without `end`, /projects stays active on /projects/smartbroker.
+      <NavLink to={link.to} className={`${styles.link} link-underline`}>
         <span className={styles.slash} aria-hidden="true">
           /
         </span>
+        {link.label}
       </NavLink>
+    ),
+  }));
 
-      <ul className={styles.tree}>
-        {/* The branch lines (├ └) are drawn in CSS, see Nav.module.css */}
-        {links.map((link) => (
-          <li key={link.to} className={styles.item}>
-            {/*
-              NavLink adds aria-current="page" to the link of the page
-              we're on. Without `end`, /projects stays active on
-              /projects/smartbroker too, which is what we want.
-            */}
-            <NavLink to={link.to} className={styles.link}>
-              <span className={styles.slashMuted} aria-hidden="true">
-                /
-              </span>
-              <span className={styles.label}>{link.label}</span>
-            </NavLink>
-          </li>
-        ))}
-      </ul>
+  return (
+    <nav aria-label="Main">
+      <CornerTree root={root} items={items} />
     </nav>
   );
 }
