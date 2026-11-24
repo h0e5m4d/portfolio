@@ -10,12 +10,13 @@ const swatches = [
   'text-subtle',
   'text-faint',
   'border',
+  'accent',
   'focus',
 ];
 
 export default function Home() {
   return (
-    <main style={{ padding: 'var(--page-gutter)', display: 'grid', gap: 'var(--space-7)' }}>
+    <div style={{ display: 'grid', gap: 'var(--space-7)' }}>
       <section style={{ display: 'grid', gap: 'var(--space-4)', maxWidth: 'var(--text-max)' }}>
         <p className="label" style={{ color: 'var(--color-text-subtle)' }}>
           Step 0 · Token preview
@@ -44,6 +45,6 @@ export default function Home() {
           </div>
         ))}
       </section>
-    </main>
+    </div>
   );
 }
