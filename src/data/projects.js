@@ -72,7 +72,7 @@ export const projects = [
     role: 'UX/UI & HCI Research',
     team: 'Solo',
     collaboration: null,
-    context: 'Academic', // TODO(Linh): confirm this was a university project
+    context: 'Academic',
     disciplines: ['UX/UI', 'HCI'],
     featured: true,
     cover: {
@@ -85,11 +85,11 @@ export const projects = [
     slug: 'boink',
     title: 'Boink+ Banking in 2030',
     summary: 'A speculative banking app for 2030, with AI built into everyday money decisions.',
-    year: null, // TODO(Linh): add the year
-    role: 'Product Designer', // TODO(Linh): confirm role
-    team: null, // TODO(Linh): 'Solo' or 'Team'
+    year: '2025',
+    role: 'Product Designer',
+    team: 'Team',
     collaboration: null,
-    context: 'Academic', // TODO(Linh): confirm
+    context: 'Academic',
     disciplines: ['UX/UI', 'Product Design', 'AI'],
     featured: false,
     cover: {
