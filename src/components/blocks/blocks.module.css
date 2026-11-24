@@ -1,0 +1,288 @@
+/* Styles for all case-study blocks. One file, because the blocks share
+   so much (captions, frames, labels) that splitting would repeat code. */
+
+/* ---------- text ---------- */
+
+.text {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.heading {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-medium);
+  letter-spacing: -0.015em;
+  margin-bottom: var(--space-1);
+}
+
+.paragraph {
+  font-size: var(--text-md);
+  line-height: var(--leading-normal);
+  color: var(--color-text-muted);
+}
+
+.list {
+  display: grid;
+  gap: var(--space-2);
+  font-size: var(--text-md);
+  color: var(--color-text-muted);
+}
+
+/* Bullets drawn as short red lines, matching the tree ticks. */
+.list li {
+  position: relative;
+  padding-left: 1.4em;
+}
+
+.list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.8em;
+  width: 0.8em;
+  border-top: 1px solid var(--color-accent);
+}
+
+/* ---------- media shared ---------- */
+
+.figure {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.frame {
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background-color: var(--color-surface);
+}
+
+.frame img,
+.frame video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.frame[data-fit='contain'] img {
+  object-fit: contain;
+  padding: 6%;
+}
+
+.caption {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-text-subtle);
+}
+
+/* ---------- gallery ---------- */
+
+.gallery {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 810px) {
+  .gallery {
+    grid-template-columns: repeat(var(--columns, 2), 1fr);
+  }
+}
+
+/* ---------- quote ---------- */
+
+.quote {
+  display: grid;
+  gap: var(--space-4);
+  padding-left: var(--space-5);
+  border-left: 2px solid var(--color-accent);
+}
+
+.quote p {
+  font-size: var(--text-lg);
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.quote p::before {
+  content: '“';
+}
+
+.quote p::after {
+  content: '”';
+}
+
+.cite {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-text-subtle);
+}
+
+/* ---------- stats ---------- */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: var(--space-3);
+}
+
+.stat {
+  display: flex;
+  flex-direction: column-reverse; /* value on top visually, label first in code */
+  gap: var(--space-1);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+}
+
+.statValue {
+  font-size: var(--text-xl);
+  font-weight: var(--weight-medium);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.statLabel {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-text-subtle);
+}
+
+/* ---------- insight (psychology) ---------- */
+
+.insight {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-accent-soft);
+}
+
+.insightTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.principle {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-medium);
+  letter-spacing: -0.01em;
+}
+
+.insightBody {
+  color: var(--color-text-muted);
+}
+
+/* ---------- before / after ---------- */
+
+.compare {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background-color: var(--color-surface);
+  user-select: none;
+}
+
+.compareImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 6%;
+  background-color: var(--color-surface);
+}
+
+/* Show only the part of "after" left of the slider. */
+.after {
+  clip-path: inset(0 calc(100% - var(--pos)) 0 0);
+}
+
+.compareTag {
+  position: absolute;
+  top: var(--space-3);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-glass);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+.tagAfter {
+  left: var(--space-3);
+}
+
+.tagBefore {
+  right: var(--space-3);
+}
+
+/* The vertical line + round knob that follow the slider. */
+.handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--pos);
+  width: 2px;
+  margin-left: -1px;
+  background-color: var(--color-accent);
+  pointer-events: none;
+}
+
+.knob {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--color-bg);
+  box-shadow: var(--shadow-md);
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  transform: translate(-50%, -50%);
+}
+
+/* The real slider: invisible, covering the whole image. */
+.range {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: ew-resize;
+}
+
+/* Keyboard users still need to see where focus is. */
+.compare:has(.range:focus-visible) .knob {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
+}

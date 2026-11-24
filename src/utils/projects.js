@@ -18,6 +18,13 @@ export function getProject(slug) {
   return projects.find((p) => p.slug === slug) ?? null;
 }
 
+// The project after this one in the list, wrapping around to the first,
+// so every case study ends with somewhere to go next.
+export function getNextProject(slug) {
+  const index = projects.findIndex((p) => p.slug === slug);
+  return projects[(index + 1) % projects.length];
+}
+
 export function getFeaturedProjects() {
   return projects.filter((p) => p.featured);
 }
