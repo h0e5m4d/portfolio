@@ -7,8 +7,17 @@
   font-weight: var(--weight-medium);
 }
 
+/* The @ spins once when you hover anywhere on the contact corner,
+   like the ⁑ logo in the nav. `rotate` is its own CSS property, so it
+   doesn't clash with any `transform`. */
 .at {
-  color: var(--color-accent);
+  display: inline-block;
+  color: var(--color-text);
+  transition: rotate var(--duration-slow) var(--ease-spring);
+}
+
+.contact:hover .at {
+  rotate: 360deg;
 }
 
 .rootSlash {
@@ -26,6 +35,16 @@
   column-gap: 0.45em;
   text-transform: none; /* email addresses read better in lowercase */
   letter-spacing: inherit;
+  /* `translate` for the hover nudge and `scale` for the press are separate
+     properties, so both can happen at once without overriding each other. */
+  transition:
+    translate var(--duration-base) var(--ease-spring),
+    scale var(--duration-fast) var(--ease-out);
+}
+
+/* Same hover as the other links in this corner: nudge left. */
+.email:hover {
+  translate: -3px 0;
 }
 
 .address,
@@ -62,18 +81,14 @@
   transition: color var(--duration-fast) var(--ease-out);
 }
 
-.email:hover .icon {
-  color: var(--color-text);
-}
-
-.check,
-.email:hover .check {
+.email:hover .icon,
+.check {
   color: var(--color-accent);
 }
 
 /* Pressed: a tiny shrink, like tapping an iOS button. */
 .email:active {
-  transform: scale(0.97);
+  scale: 0.97;
 }
 
 /* ---------- External links ---------- */
@@ -116,6 +131,14 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .contact:hover .at {
+    rotate: none;
+  }
+
+  .email:hover {
+    translate: none;
+  }
+
   .link:hover,
   .link:hover .arrow,
   .email[data-copied='true'] .address,

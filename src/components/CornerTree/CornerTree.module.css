@@ -10,7 +10,7 @@
 .tree {
   --line: 1px solid var(--color-text-faint);
   --indent: 0.4em; /* where the vertical line sits, under the root */
-  --row: 1.5rem; /* every row has the same height, like lines in an editor */
+  --row: var(--corner-row); /* every row the same height, like lines in an editor */
 
   font-family: var(--font-mono);
   font-size: var(--text-sm);
@@ -66,6 +66,13 @@
   top: 50%;
   width: 0.75em;
   border-top: var(--line);
+}
+
+/* Small phones: smaller text so both top trees fit side by side. */
+@media (max-width: 400px) {
+  .tree {
+    font-size: var(--text-xs);
+  }
 }
 
 /* ---------- Mirrored (right-aligned) ---------- */

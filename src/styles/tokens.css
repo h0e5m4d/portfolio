@@ -80,6 +80,13 @@
   /* ---------- Layout ---------- */
   --page-gutter: clamp(1rem, 0.5rem + 2vw, 1.5rem); /* left/right page padding */
   --content-max: 1440px; /* widest the layout ever gets */
+  --page-width: 44rem; /* the one column every page uses (704px) */
+
+  /* The four fixed corners: 4 rows of 1.5rem plus the gutter above and
+     below. Pages reserve this much space at the top and bottom so no
+     content starts hidden underneath a corner. */
+  --corner-row: 1.5rem;
+  --frame-height: calc(4 * var(--corner-row) + 2 * var(--page-gutter));
   --text-max: 65ch; /* comfortable line length for reading */
 
   /* ---------- Shape (soft, iOS-like) ----------
@@ -138,6 +145,14 @@
 }
 
 /* People who set "reduce motion" in their system get instant changes. */
+/* Small phones: slightly smaller corners, so the two top trees fit side
+   by side and the fixed frame takes less of the screen. */
+@media (max-width: 400px) {
+  :root {
+    --corner-row: 1.3rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   :root {
     --duration-fast: 0ms;

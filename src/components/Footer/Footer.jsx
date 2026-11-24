@@ -14,9 +14,11 @@ import styles from './Footer.module.css';
     [theme switch]                     © 2026 TU LINH TRAN
                                          IMPRINT & PRIVACY
 
-  "Back to top" will live at the end of each page instead (page steps).
+  "Back to top" lives at the end of each page instead (BackToTop).
+  Positioning (fixed to the bottom of the screen) comes from Layout,
+  passed in as `className`.
 */
-export default function Footer() {
+export default function Footer({ className = '' }) {
   const year = new Date().getFullYear(); // never needs updating by hand
 
   const statusRoot = (
@@ -47,7 +49,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className={styles.footer}>
+    <footer className={className}>
       <LocationWidget>
         <ThemeToggle />
       </LocationWidget>

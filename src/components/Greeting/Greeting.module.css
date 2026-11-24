@@ -1,0 +1,20 @@
+.word {
+  display: inline-block;
+  color: var(--color-accent);
+  animation: swap var(--duration-slow) var(--ease-spring) both;
+}
+
+/* Each new word drops in from slightly above, blurred, and settles. */
+@keyframes swap {
+  from {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translateY(-0.35em);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .word {
+    animation: none;
+  }
+}

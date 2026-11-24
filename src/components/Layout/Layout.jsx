@@ -4,6 +4,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import Nav from '../Nav/Nav.jsx';
 import ContactLinks from '../ContactLinks/ContactLinks.jsx';
 import Footer from '../Footer/Footer.jsx';
+import CursorLabel from '../CursorLabel/CursorLabel.jsx';
 import styles from './Layout.module.css';
 
 /*
@@ -11,14 +12,17 @@ import styles from './Layout.module.css';
 
   In App.jsx, all pages are nested inside this route. React Router renders
   the current page where <Outlet /> is. Because Layout itself stays mounted
-  while you navigate, the header doesn't re-render or flicker, and the
-  clock in Step 2 keeps ticking smoothly.
+  while you navigate, the corners don't re-render or flicker, and the
+  clock keeps ticking smoothly.
+
+  The header and footer are fixed to the screen (see Layout.module.css),
+  so the four corners are always visible while the page scrolls.
 */
 export default function Layout() {
   useScrollToTopOnNavigate();
 
   return (
-    <div className={styles.shell}>
+    <>
       {/*
         Skip link: invisible until focused with Tab. Lets keyboard and
         screen-reader users jump past the nav straight to the content.
@@ -37,8 +41,12 @@ export default function Layout() {
         <Outlet />
       </main>
 
-      <Footer />
-    </div>
+      <Footer className={styles.footer} />
+
+      {/* One floating label for the whole site; elements opt in with
+          data-cursor="…" (see CursorLabel.jsx). */}
+      <CursorLabel />
+    </>
   );
 }
 

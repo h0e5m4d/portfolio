@@ -1,7 +1,6 @@
 .intro {
   display: grid;
   gap: var(--space-4);
-  max-width: 40rem;
   margin-bottom: var(--space-6);
 }
 
@@ -31,19 +30,11 @@
 }
 
 /*
-  Grid: one column on phones, two from tablet up.
-  `row-gap` is larger than `column-gap` so each card's text clearly
-  belongs to the image above it, not the one below.
+  One card per row, in the same column every page uses: a calm,
+  editorial list, like reading down a page. (Was a two-column grid.)
 */
 .grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-8) var(--space-5);
+  gap: var(--space-8);
   margin-top: var(--space-7);
-}
-
-@media (min-width: 810px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
 }
