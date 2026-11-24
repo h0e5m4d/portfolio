@@ -23,20 +23,23 @@ import styles from './CaseStudy.module.css';
 export default function CaseStudy() {
   const { slug } = useParams();
   const project = getProject(slug);
-  const study = getCaseStudy(slug);
   usePageTitle(project?.title);
 
   if (!project) return <NotFound />;
 
-  // Base facts from the project, plus any extras from the case study.
+  const study = getCaseStudy(project);
+
+  // The same facts on every case study, in the same order, so pages are
+  // easy to compare. Anything not filled in yet shows a dash.
   const facts = [
     ['Role', project.role],
     ['Team', project.team],
     ['Year', project.year],
     ['Context', project.context],
     ['Partner', project.collaboration],
-    ...Object.entries(study?.facts ?? {}),
-  ].filter(([, value]) => value);
+    ['Duration', study?.facts?.Duration],
+    ['Tools', study?.facts?.Tools],
+  ];
 
   return (
     <article className={styles.article}>
@@ -65,13 +68,13 @@ export default function CaseStudy() {
           {facts.map(([label, value]) => (
             <div key={label} className={styles.fact}>
               <dt>{label}</dt>
-              <dd>{value}</dd>
+              <dd>{value || '—'}</dd>
             </div>
           ))}
         </dl>
       </header>
 
-      <div className={styles.cover} data-size="wide">
+      <div className={styles.cover}>
         <img src={project.cover.src} alt={project.cover.alt} decoding="async" />
       </div>
 
@@ -87,7 +90,7 @@ export default function CaseStudy() {
         </section>
       )}
 
-      <div data-size="wide">
+      <div>
         <NextProject project={getNextProject(slug)} />
         <BackToTop />
       </div>

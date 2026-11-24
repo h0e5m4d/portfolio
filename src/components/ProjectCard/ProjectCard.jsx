@@ -28,7 +28,12 @@ export default function ProjectCard({ project, as: Heading = 'h2', index = 0 }) 
   const { slug, title, summary, year, disciplines, cover } = project;
 
   return (
-    <Link to={`/projects/${slug}`} className={styles.card} style={{ '--i': index }}>
+    <Link
+      to={`/projects/${slug}`}
+      className={styles.card}
+      style={{ '--i': index }}
+      data-cursor="View project"
+    >
       <div className={styles.media} data-fit={cover.fit}>
         <img
           src={cover.src}

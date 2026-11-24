@@ -1,24 +1,3 @@
-/*
-  Bottom-left and bottom-right corners, the mirror image of the header.
-  flex-wrap: on a narrow phone the right tree drops below the left one,
-  and margin-left: auto keeps it hugging the right edge.
-*/
-.footer {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: var(--space-6) var(--space-5);
-  width: 100%;
-  max-width: var(--content-max);
-  margin-inline: auto;
-  padding: var(--space-7) var(--page-gutter) var(--page-gutter);
-}
-
-.footer > :last-child {
-  margin-left: auto;
-}
-
 /* ---------- Status ---------- */
 
 .status {

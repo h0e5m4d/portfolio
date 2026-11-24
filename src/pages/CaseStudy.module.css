@@ -1,43 +1,10 @@
 /*
-  Case-study layout: a grid with NAMED column lines.
-
-    full-start   wide-start   content-start      content-end   wide-end   full-end
-        |  space    |  margin   |   reading width   |  margin    |  space    |
-
-  Every child sits in the `content` column (comfortable reading width).
-  A child with data-size="wide" stretches to the `wide` lines, and
-  data-size="full" to the edges. On a phone the side columns shrink to
-  nothing, so everything is simply full width.
-
-  This is how one page can mix narrow text with wide images without
-  wrapping each element in its own container.
-
-  The content column is min(44rem, 100%): 44rem, or the whole width
-  if the screen is narrower. Because that width is definite, the side
-  columns only get what's left over, which on a phone is nothing.
+  Case-study layout: one column, the same width as every other page
+  (set by the Layout). Blocks just stack with even spacing.
 */
 .article {
   display: grid;
-  grid-template-columns:
-    [full-start] minmax(0, 1fr)
-    [wide-start] minmax(0, 9rem)
-    [content-start] min(44rem, 100%)
-    [content-end] minmax(0, 9rem)
-    [wide-end] minmax(0, 1fr)
-    [full-end];
   row-gap: var(--space-8);
-}
-
-.article > * {
-  grid-column: content;
-}
-
-.article > [data-size='wide'] {
-  grid-column: wide;
-}
-
-.article > [data-size='full'] {
-  grid-column: full;
 }
 
 /* Blocks sit a bit closer together than the big page sections. */
@@ -149,9 +116,9 @@
 /* ---------- Cover ---------- */
 
 .cover {
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 16 / 10;
   overflow: hidden;
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-lg);
   background-color: var(--color-surface);
 }
 

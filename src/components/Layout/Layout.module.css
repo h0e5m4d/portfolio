@@ -1,38 +1,94 @@
 /*
-  Page shell: a flex column so the footer (Step 3) sits at the bottom
-  even on short pages, because <main> grows to fill the space.
-*/
-.shell {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  min-height: 100dvh; /* dvh = real visible height on mobile browsers */
-}
+  THE FRAME
+  The four corners are fixed to the screen: header (top-left + top-right)
+  and footer (bottom-left + bottom-right) never scroll away. Page content
+  scrolls through the middle, in one centered column (--page-width).
 
-.header {
-  /* flex-wrap: on a narrow phone the right tree drops below the left one,
-     and margin-left: auto keeps it hugging the right edge. */
+  On wide screens (≥ 1280px) the column fits *between* the corners, so
+  nothing ever overlaps. On narrower screens content can pass under a
+  corner, so the corners get a soft fade background: the page color at
+  the edge, fading to transparent, which keeps the corner text readable.
+*/
+
+.header,
+.footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 50;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  align-items: flex-start;
   gap: var(--space-5);
-  width: 100%;
-  max-width: var(--content-max);
-  margin-inline: auto;
   padding: var(--page-gutter);
+  /* The bar spans the full width, but only the corner trees should catch
+     clicks; the empty middle lets clicks through to the page below. */
+  pointer-events: none;
 }
 
-.header > :last-child {
+.header > *,
+.footer > * {
+  pointer-events: auto;
+}
+
+/* flex-wrap + margin-left: auto: if the two trees don't fit side by side,
+   the right one drops below and still hugs the right edge. */
+.header > :last-child,
+.footer > :last-child {
   margin-left: auto;
 }
 
+/* Small phones: a smaller gap, so the two trees still fit side by side
+   at 320px (93 + 179px of trees, measured) instead of wrapping. */
+@media (max-width: 400px) {
+  .header,
+  .footer {
+    gap: var(--space-3);
+  }
+}
+
+.header {
+  top: 0;
+  align-items: flex-start;
+}
+
+.footer {
+  bottom: 0;
+  align-items: flex-end;
+}
+
+/* ---------- Fade backgrounds (below 1280px) ---------- */
+
+@media (max-width: 1279px) {
+  .header::before,
+  .footer::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    height: calc(100% + var(--space-6));
+    pointer-events: none;
+  }
+
+  .header::before {
+    top: 0;
+    background: linear-gradient(to bottom, var(--color-bg) 65%, transparent);
+  }
+
+  .footer::before {
+    bottom: 0;
+    background: linear-gradient(to top, var(--color-bg) 65%, transparent);
+  }
+}
+
+/* ---------- Page column ---------- */
+
 .main {
-  flex: 1;
-  width: 100%;
-  max-width: var(--content-max);
+  width: min(100%, calc(var(--page-width) + 2 * var(--page-gutter)));
   margin-inline: auto;
-  padding: var(--space-6) var(--page-gutter) var(--space-section);
+  padding: calc(var(--frame-height) + var(--space-6)) var(--page-gutter)
+    calc(var(--frame-height) + var(--space-7));
 }
 
 /* ---------- Skip link ----------
@@ -40,7 +96,7 @@
 .skipLink {
   position: fixed;
   top: var(--space-3);
-  left: var(--space-3);
+  left: 50%;
   z-index: 100;
   padding: var(--space-2) var(--space-4);
   border-radius: var(--radius-full);
@@ -48,10 +104,10 @@
   color: var(--color-bg);
   font-family: var(--font-mono);
   font-size: var(--text-sm);
-  transform: translateY(-200%);
+  transform: translate(-50%, -200%);
   transition: transform var(--duration-base) var(--ease-spring);
 }
 
 .skipLink:focus-visible {
-  transform: translateY(0);
+  transform: translate(-50%, 0);
 }

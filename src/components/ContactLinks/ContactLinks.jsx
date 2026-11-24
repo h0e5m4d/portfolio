@@ -28,7 +28,7 @@ export default function ContactLinks() {
         onClick={() => copy(site.email)}
         className={`${styles.email} link-underline`}
         data-copied={copied}
-        title="Copy email address"
+        data-cursor={copied ? 'Copied!' : 'Copy'}
       >
         {/* Both texts are always rendered on top of each other and
             cross-fade, so the button never changes size. */}
@@ -85,7 +85,7 @@ export default function ContactLinks() {
     </span>
   );
 
-  return <CornerTree align="right" root={root} items={items} />;
+  return <CornerTree align="right" root={root} items={items} className={styles.contact} />;
 }
 
 const iconProps = {

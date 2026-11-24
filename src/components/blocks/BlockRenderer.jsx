@@ -25,8 +25,9 @@ const components = {
   beforeAfter: BeforeAfterBlock,
 };
 
-// How wide each block type is unless the data says otherwise:
-// 'content' = reading width, 'wide' = wider, 'full' = whole page width.
+// Every page currently shares one column width, so all blocks render at
+// that width. `size` is kept in the data (and as data-size on the
+// wrapper) so wider layouts can come back later with CSS alone.
 const defaultSize = {
   text: 'content',
   quote: 'content',
