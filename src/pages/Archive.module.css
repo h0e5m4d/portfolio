@@ -1,0 +1,96 @@
+.archive {
+  display: grid;
+  gap: var(--space-section);
+}
+
+.intro {
+  display: grid;
+  gap: var(--space-4);
+  padding-top: var(--space-6);
+}
+
+.title {
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-medium);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.total {
+  position: relative;
+  top: 0.4em;
+  margin-left: 0.2em;
+  vertical-align: top;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-regular);
+  letter-spacing: var(--tracking-label);
+  color: var(--color-accent);
+}
+
+.lead {
+  font-size: var(--text-md);
+  color: var(--color-text-muted);
+}
+
+.groupTitle {
+  margin-bottom: var(--space-5);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-regular);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.count {
+  color: var(--color-accent);
+}
+
+/*
+  Masonry layout with CSS columns: items flow top-to-bottom through the
+  columns like text in a newspaper, and every image keeps its own
+  height. Two columns on phones, three from 600px.
+*/
+.gallery {
+  columns: 2;
+  column-gap: var(--space-3);
+}
+
+@media (min-width: 600px) {
+  .gallery {
+    columns: 3;
+  }
+}
+
+.piece {
+  break-inside: avoid; /* never split one image across two columns */
+  margin-bottom: var(--space-3);
+}
+
+.open {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+  transition: scale var(--duration-fast) var(--ease-out);
+}
+
+.open img {
+  width: 100%;
+  transition: transform var(--duration-slow) var(--ease-out);
+}
+
+.open:hover img {
+  transform: scale(1.04);
+}
+
+.open:active {
+  scale: 0.98;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .open:hover img {
+    transform: none;
+  }
+}
