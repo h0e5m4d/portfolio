@@ -14,13 +14,11 @@ export const site = {
     detail: 'From April 2027',
   },
 
-  // External profiles. The résumé will become '/resume.pdf' once the
-  // web version of the PDF is added to the `public/` folder.
+  // Résumé and profiles. The CV lives in public/resume.pdf: files in
+  // public/ are published as they are, at the same path. To update your
+  // CV, replace that file (keep the name) and push.
   links: [
-    {
-      label: 'Résumé',
-      href: 'https://drive.google.com/file/d/1vGpHemBvDVFPclnhLyAy4TIyUWlkSbrv/view?usp=drive_link',
-    },
+    { label: 'Résumé', href: '/resume.pdf' },
     { label: 'LinkedIn', href: 'https://www.linkedin.com/in/tulinhtrann' },
   ],
 };

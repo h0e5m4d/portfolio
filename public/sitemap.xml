@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  A list of the site's pages for search engines. When you add a project,
+  add its URL here too: https://tulinhtran.com/projects/<slug>
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://tulinhtran.com/</loc></url>
+  <url><loc>https://tulinhtran.com/projects</loc></url>
+  <url><loc>https://tulinhtran.com/projects/smartbroker</loc></url>
+  <url><loc>https://tulinhtran.com/projects/rolls-royce</loc></url>
+  <url><loc>https://tulinhtran.com/projects/hanoi-metro</loc></url>
+  <url><loc>https://tulinhtran.com/projects/boink</loc></url>
+  <url><loc>https://tulinhtran.com/about</loc></url>
+  <url><loc>https://tulinhtran.com/archive</loc></url>
+  <url><loc>https://tulinhtran.com/legal</loc></url>
+</urlset>

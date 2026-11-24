@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!--
+    The ⁑ mark: two six-armed asterisks, drawn with lines because
+    favicons can't load web fonts. The <style> switches the colour with
+    the visitor's system theme, so the tab icon stays visible on light
+    and dark browser tabs.
+  -->
+  <style>
+    g { stroke: #000; }
+    @media (prefers-color-scheme: dark) { g { stroke: #fff; } }
+  </style>
+  <g stroke-width="2.4" stroke-linecap="round">
+    <path d="M16 3.5v9M12.1 5.75l7.8 4.5M19.9 5.75l-7.8 4.5" />
+    <path d="M16 19.5v9M12.1 21.75l7.8 4.5M19.9 21.75l-7.8 4.5" />
+  </g>
+</svg>
