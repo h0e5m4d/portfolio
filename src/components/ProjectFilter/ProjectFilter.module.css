@@ -1,0 +1,47 @@
+.filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.pill {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5em;
+  padding: 7px 14px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out);
+}
+
+.pill:hover {
+  background-color: var(--color-control);
+}
+
+.pill:active {
+  transform: scale(0.95);
+}
+
+/* Active filter: inverted, black pill with white text (white on black
+   in dark mode, because both colors are tokens). */
+.pill[aria-pressed='true'] {
+  background-color: var(--color-text);
+  color: var(--color-bg);
+}
+
+.count {
+  color: var(--color-text-subtle);
+  font-variant-numeric: tabular-nums;
+}
+
+.pill[aria-pressed='true'] .count {
+  color: var(--color-accent);
+}

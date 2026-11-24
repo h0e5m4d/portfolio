@@ -1,0 +1,38 @@
+.wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-section);
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-text-subtle);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.button:hover {
+  color: var(--color-text);
+}
+
+.arrow {
+  display: inline-block;
+  color: var(--color-accent);
+  transition: transform var(--duration-base) var(--ease-spring);
+}
+
+/* The arrow hops up, pointing where you're about to go. */
+.button:hover .arrow {
+  transform: translateY(-3px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button:hover .arrow {
+    transform: none;
+  }
+}
