@@ -38,7 +38,12 @@ export const timeline = [
     org: 'National Taipei University of Technology',
   },
   {
-    dates: '2023 – exp. 03/2028',
+    dates: '09/2026 – 01/2027',
+    title: 'Full Scholarship',
+    org: 'DAAD-ISAP',
+  },
+  {
+    dates: '2023 – exp. 03/2028', // TODO(Linh): CV says exp. 2027, which is right?
     title: 'B.A. Interface Design',
     org: 'University of Applied Sciences Potsdam',
   },
@@ -64,10 +69,11 @@ export const skills = [
     group: 'Design',
     items: ['UI & interaction design', 'Design systems', 'Wireframing', 'Prototyping', 'Visual & brand design', 'Vector illustration'],
   },
-  { group: 'Development', items: ['HTML', 'CSS', 'JavaScript', 'React'] },
+  { group: 'Development', items: ['HTML', 'CSS', 'JavaScript', 'React', 'C++', 'C#'] },
   {
     group: 'Tools',
-    items: ['Figma', 'Framer', 'Miro', 'Illustrator', 'Photoshop', 'InDesign', 'Blender', 'Lens Studio', 'Reality Composer'],
+    // TODO(Linh): your CV also lists "VSS". Did you mean VS Code?
+    items: ['Figma', 'Adobe CC', 'Affinity', 'Blender', 'Unity', 'TouchDesigner', 'Arduino', 'Lens Studio', 'Reality Composer', 'Scenery', 'Miro'],
   },
 ];
 
@@ -75,9 +81,9 @@ export const skills = [
 export const languages = [
   { name: 'Vietnamese', level: 'native' },
   { name: 'German', level: 'C2' },
-  { name: 'English', level: 'C1–C2', score: 'C1' }, // dots shown for the lower bound
+  { name: 'English', level: 'C1/C2', score: 'C1' }, // dots shown for the lower bound
   { name: 'French', level: 'A2' },
-  { name: 'Mandarin', level: 'A1', note: 'Traditional, studying in Taipei' },
+  { name: 'Traditional Mandarin', level: 'A1', note: 'Studying in Taipei' },
 ];
 
 export const photos = [

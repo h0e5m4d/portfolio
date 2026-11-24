@@ -22,11 +22,11 @@
   --color-surface: #f4f4f4; /* grey backdrop behind project images */
   --color-text: #000000; /* nav, headings, links */
   --color-text-muted: #525252; /* body paragraphs */
-  --color-text-subtle: #737373; /* metadata: years, categories, clock */
+  --color-text-subtle: #6e6e6e; /* metadata: years, categories, clock (4.6:1 on surface) */
   --color-text-faint: #a1a1a1; /* decorative only, never essential text */
   --color-border: #d4d4d4;
-  --color-accent: #d92d20; /* red: active states, highlights. 4.8:1 on white, OK for text */
-  --color-accent-soft: rgb(217 45 32 / 0.1); /* faint red tint for backgrounds */
+  --color-accent: #d0291c; /* red: active states, highlights. 5.2:1 on white, 4.75:1 on surface */
+  --color-accent-soft: rgb(208 41 28 / 0.1); /* faint red tint for backgrounds */
   --color-focus: #2563eb; /* keyboard focus ring, must be clearly visible */
 
   /* Frosted-glass surface (iOS style) for floating controls. */
