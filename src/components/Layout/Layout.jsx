@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 
 import Nav from '../Nav/Nav.jsx';
+import LocationWidget from '../LocationWidget/LocationWidget.jsx';
 import ThemeToggle from '../ThemeToggle/ThemeToggle.jsx';
 import styles from './Layout.module.css';
 
@@ -29,7 +30,7 @@ export default function Layout() {
       <header className={styles.header}>
         <Nav />
         <div className={styles.controls}>
-          {/* Step 2: Taipei time + weather goes here */}
+          <LocationWidget />
           <ThemeToggle />
         </div>
       </header>
